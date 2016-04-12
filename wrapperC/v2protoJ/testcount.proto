@@ -1,5 +1,0 @@
-option java_package = "testebft";
-message Counter
-{
-required int32 value = 1;
-}

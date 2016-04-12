@@ -1,4 +1,0 @@
-message Texto
-{
-required string valor = 1;
-}

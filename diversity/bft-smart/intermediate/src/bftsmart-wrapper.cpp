@@ -2,7 +2,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include <cstdint>
-#include "bftsmart_tom_diversity_ServerWrapper.h"
+#include <bftsmart_diversity_ServerWrapper.h>
 #include "bftsmart-wrapper.h"
 
 /* todo: ajustar para overflow nas funcoes do JNI */
@@ -65,7 +65,7 @@ extern "C" {
         env = bftsmartdiversity::env;
 
         /* invoke the Main.test method using the JNI */
-        jclass cls = env->FindClass("bftsmart/tom/diversity/ClientWrapper");
+        jclass cls = env->FindClass("bftsmart/diversity/ClientWrapper");
 
         if (cls == NULL) {
             std::cout << "ERRO no FindClass diversity" << std::endl;
@@ -216,11 +216,11 @@ return malloc(tamanho);
 
 
     /*
-     * Class:     bftsmart_tom_diversity_ServerWrapper
+     * Class:     bftsmart_diversity_ServerWrapper
      * Method:    executeOrderedNative
      * Signature: ([B)[B
      */
-    JNIEXPORT jbyteArray JNICALL Java_bftsmart_tom_diversity_ServerWrapper_executeOrderedNative
+    JNIEXPORT jbyteArray JNICALL Java_bftsmart_diversity_ServerWrapper_executeOrderedNative
     (JNIEnv * env, jobject jobj, jbyteArray jbytes) {
         if (DEBUG)
 	std::cout << "JNICALL: executeOrderedNative" << std::endl;
@@ -252,11 +252,11 @@ return malloc(tamanho);
     }
 
     /*
-     * Class:     bftsmart_tom_diversity_ServerWrapper
+     * Class:     bftsmart_diversity_ServerWrapper
      * Method:    executeUnorderedNative
      * Signature: ([B)[B
      */
-    JNIEXPORT jbyteArray JNICALL Java_bftsmart_tom_diversity_ServerWrapper_executeUnorderedNative
+    JNIEXPORT jbyteArray JNICALL Java_bftsmart_diversity_ServerWrapper_executeUnorderedNative
     (JNIEnv * env, jobject jobj, jbyteArray jbytes) {
         BFT_UNUSED(jobj);
         jint tamanhoN = env->GetArrayLength(jbytes);
@@ -276,11 +276,11 @@ return malloc(tamanho);
     }
 
     /*
-     * Class:     bftsmart_tom_diversity_ServerWrapper
+     * Class:     bftsmart_diversity_ServerWrapper
      * Method:    getSnapshotNative
      * Signature: ()[B
      */
-    JNIEXPORT jbyteArray JNICALL Java_bftsmart_tom_diversity_ServerWrapper_getSnapshotNative
+    JNIEXPORT jbyteArray JNICALL Java_bftsmart_diversity_ServerWrapper_getSnapshotNative
     (JNIEnv * env, jobject jobj) {
         BFT_UNUSED(jobj);
         //printf("getSnapshotNative-begin\n");
@@ -298,11 +298,11 @@ return malloc(tamanho);
     }
 
     /*
-     * Class:     bftsmart_tom_diversity_ServerWrapper
+     * Class:     bftsmart_diversity_ServerWrapper
      * Method:    installSnapshotNative
      * Signature: ([B)V
      */
-    JNIEXPORT void JNICALL Java_bftsmart_tom_diversity_ServerWrapper_installSnapshotNative
+    JNIEXPORT void JNICALL Java_bftsmart_diversity_ServerWrapper_installSnapshotNative
     (JNIEnv * env, jobject jobj, jbyteArray jbytes) {
         //printf("installSnapshotNative-begin\n");
         BFT_UNUSED(jobj);
@@ -324,7 +324,7 @@ return malloc(tamanho);
         env = bftsmartdiversity::env;
 
         /* invoke the Main.test method using the JNI */
-        jclass cls = env->FindClass("bftsmart/tom/diversity/ServerWrapper");
+        jclass cls = env->FindClass("bftsmart/diversity/ServerWrapper");
 
         if (cls == NULL) {
             std::cout << "ERRO no FindClass diversity" << std::endl;
@@ -336,19 +336,19 @@ return malloc(tamanho);
 
             { (char*) "executeUnorderedNative", (char*) "([B)[B",
                 __extension__
-                (void*)&Java_bftsmart_tom_diversity_ServerWrapper_executeUnorderedNative},
+                (void*)&Java_bftsmart_diversity_ServerWrapper_executeUnorderedNative},
 
             { (char*) "executeOrderedNative", (char*) "([B)[B",
                 __extension__
-                (void*)&Java_bftsmart_tom_diversity_ServerWrapper_executeOrderedNative},
+                (void*)&Java_bftsmart_diversity_ServerWrapper_executeOrderedNative},
 
             { (char*) "installSnapshotNative", (char*) "([B)V",
                 __extension__
-                (void*)&Java_bftsmart_tom_diversity_ServerWrapper_installSnapshotNative},
+                (void*)&Java_bftsmart_diversity_ServerWrapper_installSnapshotNative},
 
             { (char*) "getSnapshotNative", (char*) "()[B",
                 __extension__
-                (void*)&Java_bftsmart_tom_diversity_ServerWrapper_getSnapshotNative}
+                (void*)&Java_bftsmart_diversity_ServerWrapper_getSnapshotNative}
         };
 
         const int methods_size = sizeof (methods) / sizeof (methods[0]);

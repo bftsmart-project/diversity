@@ -11,7 +11,13 @@ bftsmart-diversity is a library for creating diversified applications in BFT-SMa
     * netty-3.1.1.GA.jar  
     * slf4j-api-1.5.8.jar  
     * slf4j-jdk14-1.5.8.jar
+* gcc and g++
+* python
+* go-lang
 
 ## Building
-1. Compile diversity/bft-smart/java on NetBeans
-2. Run "make all" in diversity/bft-smart/intermediate/
+1. Run make in /diversity
+2. That's all!
+
+## Running
+WIP

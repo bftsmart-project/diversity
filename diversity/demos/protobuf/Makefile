@@ -11,12 +11,11 @@ proto :
 	cd protobuf-2.6.1; make install
 
 
-protoc : PKG_CONFIG_PATH=$(PASTABUILD)/build/lib/pkgconfig
 protoc :
-	cd protobuf-c; ./autogen.sh
-	cd protobuf-c; ./configure --prefix=$(PASTABUILD)/build
-	cd protobuf-c; make
-	cd protobuf-c; make install
+	cd protobuf-c; PKG_CONFIG_PATH=$(PASTABUILD)/build/lib/pkgconfig ./autogen.sh
+	cd protobuf-c; PKG_CONFIG_PATH=$(PASTABUILD)/build/lib/pkgconfig ./configure --prefix=$(PASTABUILD)/build
+	cd protobuf-c; PKG_CONFIG_PATH=$(PASTABUILD)/build/lib/pkgconfig make
+	cd protobuf-c; PKG_CONFIG_PATH=$(PASTABUILD)/build/lib/pkgconfig make install
 
 .PHONY : clean
 

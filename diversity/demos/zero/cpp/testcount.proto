@@ -1,4 +1,0 @@
-message Counter
-{
-required int32 value = 1;
-}

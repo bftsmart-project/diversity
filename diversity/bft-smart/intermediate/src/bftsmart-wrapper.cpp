@@ -76,14 +76,14 @@ extern "C" {
         jint arg = (jint) id;
         jmethodID constru = env->GetMethodID(cls, "<init>", "(I)V");
         if (constru == NULL) {
-            std::cout << "ERRO ao construir wrapper" << std::endl;
+            std::cout << "ERRO ao construir wrapper getmid" << std::endl;
             jvm->DestroyJavaVM();
             return 0x8200;
         }
 
         bftsmartdiversity::serviceProxy = env->NewObject(cls, constru, arg);
         if (bftsmartdiversity::serviceProxy == NULL) {
-            std::cout << "ERRO ao construir wrapper" << std::endl;
+            std::cout << "ERRO ao construir wrapper int. srvprox" << std::endl;
             jvm->DestroyJavaVM();
             return 0x8201;
         }
@@ -360,9 +360,12 @@ return malloc(tamanho);
 
         }
         jmethodID mid = env->GetMethodID(cls, "<init>", "(I)V");
+	if (mid == NULL) {
+		std::cout << "nao encontrou construtor" << std::endl;
+	}
         jobject newObj = env->NewObject(cls, mid, (jint) id);
-        if (newObj == NULL) {
-            std::cout << "ERRO ao construir wrapper" << std::endl;
+         if (newObj == NULL) {
+            std::cout << "ERRO ao construir wrapper gmid2:" << id << std::endl;
             jvm->DestroyJavaVM();
             return 0x8201;
         }

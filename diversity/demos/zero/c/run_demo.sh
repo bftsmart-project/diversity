@@ -29,13 +29,12 @@ echo "-Djava.class.path=$BASEFOLDER/$LIBCLSPTH/BFT-SMaRt.jar:$BASEFOLDER/$LIBCLS
 echo
 echo
 
-$BASEFOLDER/demolist.py "-Djava.class.path=$BASEFOLDER/$LIBCLSPTH/BFT-SMaRt.jar:"\
+$BASEFOLDER/build/bench_server.out $2 "-Djava.class.path=$BASEFOLDER/$LIBCLSPTH/BFT-SMaRt.jar:"\
 "$BASEFOLDER/$LIBCLSPTH/sl4j-api-1.5.8.jar:"\
 "$BASEFOLDER/$LIBCLSPTH/slf4j-jdk14-1.5.8.jar:"\
 "$BASEFOLDER/$LIBCLSPTH/netty-3.1.1.GA.jar:"\
 "$BASEFOLDER/$LIBCLSPTH/commons-codec-1.5.jar:"\
-"$BASEFOLDER/$DIVCLSPTH/bftsmart-diversity.jar" $2 \
-$BASEFOLDER/$DLLCLSPTH/libbftsmr.so
+"$BASEFOLDER/$DIVCLSPTH/bftsmart-diversity.jar"
 
 
 

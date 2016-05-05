@@ -6,7 +6,7 @@ import Vazio_pb2
 from bftsmart_serverlib import *
 
 class BFTList(BFTSMaRtServer):
-    def __init__(self,classpth,id):
+    def __init__(self,classpth,id,dllpath):
         super(BFTList,self).__init__(classpth,id,dllpath)      # chama o construtor da classe base
 
     def execute(self, input):

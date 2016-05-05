@@ -1,6 +1,6 @@
 PASTABUILD := $(shell pwd)
 
-all : proto protoc
+all : proto protoc protopy
 
 
 proto :
@@ -9,6 +9,16 @@ proto :
 	cd protobuf-2.6.1; make
 	cd protobuf-2.6.1; make check
 	cd protobuf-2.6.1; make install
+
+protopy : 
+	cd protobuf-2.6.1/python; python setup.py build
+	cd protobuf-2.6.1/python; python setup.py google_test
+	cd protobuf-2.6.1/python; PYTHONPATH=$(PASTABUILD)/build/lib/python2.7/site-packages python setup.py install --prefix=$(PASTABUILD)/build
+
+protoj :
+	cd protobuf-2.6.1/java; ../../build/bin/protoc --java_out=src/main/java -I../src ../src/google/protobuf/descriptor.proto
+	javac -d build protobuf-2.6.1/java/src/main/java/com/google/protobuf/*.java 
+	cd build; jar cf protobuf-runtime.jar com
 
 
 protoc :

@@ -14,11 +14,10 @@ def tracefunc(frame, event, arg, indent=[0]):
       return tracefunc
 
 class BFTJVM(object):
-    libbft = CDLL("libbftsmr.so")           # carrega a DLL do wrapper, 1 vez somente por execucao
     jvmCarregada = False                # flag para controle do carregamento da Jvm
 
     def __init__(self, dllpath, classpth):             # construtor
-        self.libbft = CDLL(dllpath);
+        BFTJVM.libbft = CDLL(dllpath);
         if BFTJVM.jvmCarregada == False:
             # especifica retorno das funcoes C que nao retornam int
             BFTJVM.libbft.setClasspath.restype = None

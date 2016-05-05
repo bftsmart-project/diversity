@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <iostream>
 #include <bftsmart-wrapper.h>
-#include "Vazio.pb.h"
+#include <Vazio.pb.h>
 
 
 #define NAO_UTILIZADA(x) (void)(x)
@@ -73,11 +73,20 @@ void release(BFT_BYTE * mem)
 }
 
 int main(int argc, char* argv[]) {
-    if (argc < 2) {
-        printf("%s", "Argumentos invalidos.\n");
-        return -1;
+    if (argc == 1) 
+    { 
+        printf("Usage: %s id_replica classpath_java\n", 
+                argv[0]); 
+        return -1; 
+    }                                                                             
+                                                                                  
+    if (argc < 3) { 
+        printf("%s", "Argumentos invalidos.\n"); 
+        return -1; 
     }
 
+
+    setClasspath(argv[2]);
     carregarJvm();
     implementExecuteOrdered(&execOrd);
     implementExecuteUnordered(&execUnord);

@@ -13,5 +13,6 @@ logging.info("teste")
 
 #primeiro parametro. classpath. 
 #segundo parametro. id replica
-bc = BFTList(sys.argv[1], sys.argv[2] sys.argv[3])
+#terceiro para. caminh odll
+bc = BFTList(sys.argv[1], sys.argv[2], sys.argv[3])
 bc.finalizarJvm()

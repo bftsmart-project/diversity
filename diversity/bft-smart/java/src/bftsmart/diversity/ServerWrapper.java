@@ -27,9 +27,14 @@ public class ServerWrapper extends DefaultSingleRecoverable {
     private final int interval = 50000;
     private int count;
     public ServerWrapper(int id) {
+try {
         new ServiceReplica(id, this, this);
         executeOrderedTime = new Storage(interval);
         count = 0;
+} catch (Exception ex) {
+System.out.println(ex.getMessage());
+throw ex;
+}
     }
 
     @Override

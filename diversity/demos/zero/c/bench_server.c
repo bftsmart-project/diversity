@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <bftsmart-wrapper.h>
-#include "Vazio.pb-c.h"
+#include <Vazio.pb-c.h>
 
 #define NAO_UTILIZADA(x) (void)(x)
 
@@ -26,7 +26,7 @@ int execUnord(BFT_BYTE  cmd[], int siz, BFT_BYTE ** out) {
 }
 
 void installSnap(BFT_BYTE  stateNovo[], int siz) {
-  
+
     Bftbench__Vazio *msg = bftbench__vazio__unpack(NULL, siz, (const uint8_t*)stateNovo);    
 
 
@@ -56,11 +56,19 @@ int getSnap(BFT_BYTE ** mem) {
 
 int main(int argc, char* argv[]) {
 
-    if (argc < 2) {
+    if (argc == 1)
+    {
+        printf("Usage: %s id_replica classpath_java\n",
+		argv[0]);
+	return -1;
+    }
+
+    if (argc < 3) {
         printf("%s", "Argumentos invalidos.\n");
         return -1;
     }
 
+    setClasspath(argv[2]);
     carregarJvm();
     implementExecuteOrdered(&execOrd);
     implementExecuteUnordered(&execUnord);

@@ -13,6 +13,7 @@ bftsmart-diversity is a library for creating diversified applications in BFT-SMa
     * slf4j-jdk14-1.5.8.jar
 * gcc and g++
 * python
+* python setuptools
 * go-lang
 
 ## Building

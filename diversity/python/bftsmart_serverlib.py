@@ -6,7 +6,7 @@ import logging
 from BFTJVM import *
 
 class BFTSMaRtServer(BFTJVM):
-    def __init__(self,id,dllpath,clspath):
+    def __init__(self,clspath,id,dllpath):
         super(BFTSMaRtServer,self).__init__(dllpath,clspath)     # chama o construtor da classe base
 
         def liberar(p):

@@ -8,8 +8,9 @@ SFX=../../protobuf/build/lib/libprotobuf-c.a
 SFX += ../../protobuf/build/lib/libprotobuf.a
 
 bench_server: 
-	-mkdir build
-	g++ $(CCFLAGS) -o build/bench_server.out $(INCL) $(LIBS) ../protobuf/build/Vazio.pb.cc bench_server.cpp ../../../bft-smart/intermediate/dist/wrapper.o $(SFX) -ljvm
+	-mkdir -p build
+	javac -cp "../../../lib/BFT-SMaRt.jar:../../protobuf/build/protobuf-runtime.jar:../protobuf/build/vazio-proto.jar" -d build bftsmart/diversity/demos/zero/*.java
+	cd build; jar cfe bench_server.jar bftsmart.diversity.demos.zero.ServerLaunch bftsmart
 
 .PHONY: clean
 

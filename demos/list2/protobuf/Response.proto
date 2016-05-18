@@ -1,0 +1,7 @@
+package bftbench;
+
+message Response
+{
+	optional bool BoolResponse = 1;
+	optional int32 IntResponse = 2;
+}

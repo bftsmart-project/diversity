@@ -1,0 +1,16 @@
+package bftbench;
+
+message Request
+{
+	enum RequestType {
+		ADD = 0;
+		REMOVE = 1;
+		SIZE = 2;
+		CONTAINS = 3;
+		GET = 4;
+	}
+
+	required RequestType action = 1;
+
+	optional int32 value = 2;
+}

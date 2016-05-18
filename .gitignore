@@ -102,7 +102,6 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
 lib64/
 parts/
 sdist/
@@ -195,7 +194,4 @@ buildNumber.properties
 .mvn/timing.properties
 
 ### Customizado . ###
-built/
-diversity/demos/protobuf/protobuf-c
-diversity/demos/protobuf/protobuf-2.6.1
 

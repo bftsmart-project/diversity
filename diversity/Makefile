@@ -1,3 +1,4 @@
+.PHONY : clean all
 
 all : 
 	cd java; make
@@ -7,7 +8,6 @@ all :
 	cd cpp; make
 
 
-.PHONY : clean
 
 clean :
 	cd java; make clean

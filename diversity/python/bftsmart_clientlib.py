@@ -5,8 +5,8 @@ import sys
 from BFTJVM import *
 
 class BFTSMaRtClient(BFTJVM):
-    def __init__(self, id):
-        super(BFTSMaRtClient,self).__init__()     # chama o construtor da classe base
+    def __init__(self, clspath, id, dllpath):
+        super(BFTSMaRtClient,self).__init__(dllpath, clspath)     # chama o construtor da classe base
         BFTJVM.libbft.createServiceProxy(int(id)) # cria o client wrapper com um id tipo (int)
     
     def invokeOrdered(self, strobj):        # invoca o ordered, recebendo uma string binaria

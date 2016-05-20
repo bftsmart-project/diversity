@@ -192,5 +192,5 @@ buildNumber.properties
 .mvn/timing.properties
 
 ### Customizado . ###
-/protobuf/protobuf-2.6.1
-/protobuf/protobuf-c
+protobuf/protobuf-2.6.1/*
+protobuf/protobuf-c/*

@@ -20,6 +20,5 @@ bftsmart-diversity is a library for creating diversified applications in BFT-SMa
 2. That's all!
 
 ## Running
-Run "make run id=0" inside each demo folder to run that specific demo
-(e.g. demos/list/python) with replica id "0" (zero).
-"id" is the id of the replica, configure accordingly.
+Use the "run_demo.sh" script in each demo folder.
+

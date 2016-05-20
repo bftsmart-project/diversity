@@ -10,6 +10,7 @@ SFX += ../../../protobuf/build/lib/libprotobuf.a
 bench_server: 
 	-mkdir build
 	gcc $(CCFLAGS) -o build/bench_server.out $(INCL) $(LIBS) ../protobuf/build/*.pb-c.c bench_server.c ../../../diversity/c/build/wrapper.o $(SFX) -ljvm
+	gcc $(CCFLAGS) -o build/test_client.out $(INCL) $(LIBS) ../protobuf/build/*.pb-c.c test_client.c ../../../diversity/c/build/wrapper.o $(SFX) -ljvm
 
 .PHONY: clean
 

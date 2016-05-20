@@ -4,29 +4,32 @@ LIBS=-L $(PASTAJAVA)/jre/lib/amd64/server
 CCFLAGS=-g -Wextra -Wall -Werror
 CPFLAGS=-g -Wextra -Wall -Werror -std=c++0x
 
+.PHONY: clean all headers
 
-all : headers wrapper lshared
+all : build/libbftsmr.so 
 
-headers :
+../java/build/bftsmart-diversity.jar : FORCE
+	$(MAKE) -C ../java 
+
+build/bftsmart_diversity_ClientWrapper%h build/bftsmart_diversity_ServerWrapper%h : ../java/build/bftsmart-diversity.jar
 	-mkdir build
-	javah -d build -verbose -classpath ../../lib/BFT-SMaRt.jar:../java/build/bftsmart-diversity.jar bftsmart.diversity.ServerWrapper
-	javah -d build -verbose -classpath ../../lib/BFT-SMaRt.jar:../java/build/bftsmart-diversity.jar bftsmart.diversity.ClientWrapper
+	javah -force -d build -verbose -classpath ../../lib/BFT-SMaRt.jar:../java/build/bftsmart-diversity.jar bftsmart.diversity.ServerWrapper
+	javah -force -d build -verbose -classpath ../../lib/BFT-SMaRt.jar:../java/build/bftsmart-diversity.jar bftsmart.diversity.ClientWrapper
 
-wrapper : headers
-	-mkdir dist
+
+
+
+build/wrapper.o : bftsmart-wrapper.cpp build/bftsmart_diversity_ClientWrapper.h build/bftsmart_diversity_ServerWrapper.h
 	g++ $(CPFLAGS) -fPIC -o build/wrapper.o $(INCL) $(LIBS) -c bftsmart-wrapper.cpp -ljvm 
 
-lshared: wrapper	
+build/libbftsmr.so : build/wrapper.o	
 	g++ -shared -Wl,-soname,libbftsmr.so $(LIBS) -o build/libbftsmr.so build/wrapper.o -ljvm
 
-all: wrapper lshared
-
-.PHONY: clean
 
 clean:
 	rm -rfv build
 
-
+FORCE : ;	
 
    
 

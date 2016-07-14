@@ -173,6 +173,8 @@ ENV/
 ### NetBeans ###
 nbproject/private/
 build/
+go/pkg/
+go/bin/
 nbbuild/
 dist/
 nbdist/

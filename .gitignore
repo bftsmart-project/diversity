@@ -196,3 +196,18 @@ buildNumber.properties
 ### Customizado . ###
 protobuf/protobuf-2.6.1/*
 protobuf/protobuf-c/*
+protobuf/protobuf-go/*
+protobuf/protobuf-go/*.DS_Store
+protobuf/protobuf-go/*.[568ao]
+protobuf/protobuf-go/*.ao
+protobuf/protobuf-go/*.so
+protobuf/protobuf-go/*.pyc
+protobuf/protobuf-go/._*
+protobuf/protobuf-go/.nfs.*
+protobuf/protobuf-go/[568a].out
+protobuf/protobuf-go/*~
+protobuf/protobuf-go/*.orig
+protobuf/protobuf-go/core
+protobuf/protobuf-go/_obj
+protobuf/protobuf-go/_test
+protobuf/protobuf-go/_testmain.go

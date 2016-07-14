@@ -94,3 +94,7 @@ func bftsmartallocate(tamanho uint) unsafe.Pointer {
 func bftsmartrelease(ponteiro unsafe.Pointer) {
 	C.bftsmartrelease(ponteiro)
 }
+
+func SetClasspath(cl string) {
+	C.setClasspath(C.CString(cl))
+}

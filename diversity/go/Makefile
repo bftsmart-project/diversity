@@ -16,7 +16,7 @@ all:
 .PHONY: clean
 
 clean:
-	;
+	rm -rf pkg/* bin/*;
 
 
 

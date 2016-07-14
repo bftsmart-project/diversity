@@ -21,8 +21,8 @@ namespace bftsmartdiversity {
     jobject serviceReplica;
     JavaVM *jvm;
     JNIEnv *env;
-    jmethodID executeOrderedMethod;
-    jmethodID executeUnorderedMethod;
+    jmethodID invokeOrderedMethod;
+    jmethodID invokeUnorderedMethod;
     /* classpath padrao: execucao direto de dentro do diretorio do bft-smart */
     const char * classpath = "-Djava.class.path=dist/BFT-SMaRt.jar:lib/slf4j-api-1.5.8.jar:lib/slf4j-jdk14-1.5.8.jar:lib/netty-3.1.1.GA.jar:lib/commons-codec-1.5.jar";
     int (*executeOrderedImplementation) (BFT_BYTE [], int, BFT_BYTE **);
@@ -88,9 +88,9 @@ extern "C" {
             return 0x8201;
         }
 
-        bftsmartdiversity::executeOrderedMethod = env->GetMethodID(cls, "executeOrdered", "([B)[B");
-        bftsmartdiversity::executeUnorderedMethod = env->GetMethodID(cls, "executeUnordered", "([B)[B");
-        if (bftsmartdiversity::executeOrderedMethod == NULL || bftsmartdiversity::executeUnorderedMethod == NULL) {
+        bftsmartdiversity::invokeOrderedMethod = env->GetMethodID(cls, "invokeOrdered", "([B)[B");
+        bftsmartdiversity::invokeUnorderedMethod = env->GetMethodID(cls, "invokeUnordered", "([B)[B");
+        if (bftsmartdiversity::invokeOrderedMethod == NULL || bftsmartdiversity::invokeUnorderedMethod == NULL) {
             std::cout << "ERRO ao obter execute(un) ordered  " << std::endl;
             jvm->DestroyJavaVM();
             return 0x8107;
@@ -130,10 +130,10 @@ return malloc(tamanho);
         env->SetByteArrayRegion(arrayJava, 0, tamanho, (jbyte*) command);
 
         jbyteArray result = (jbyteArray) (env->CallObjectMethod(bftsmartdiversity::serviceProxy,
-                bftsmartdiversity::executeOrderedMethod, arrayJava));
+                bftsmartdiversity::invokeOrderedMethod, arrayJava));
 
         if (result == NULL) {
-            std::cout << "erro o chamar execute ordered" << std::endl;
+            std::cout << "erro o chamar invoke ordered" << std::endl;
             jvm->DestroyJavaVM();
             return 0x8109;
         }
@@ -165,10 +165,10 @@ return malloc(tamanho);
         env->SetByteArrayRegion(arrayJava, 0, tamanho, (jbyte*) command);
 
         jbyteArray result = (jbyteArray) (env->CallObjectMethod(bftsmartdiversity::serviceProxy,
-                bftsmartdiversity::executeUnorderedMethod, arrayJava));
+                bftsmartdiversity::invokeUnorderedMethod, arrayJava));
 
         if (result == NULL) {
-            std::cout << "erro o chamar execute unordered" << std::endl;
+            std::cout << "erro o chamar invoke unordered" << std::endl;
             jvm->DestroyJavaVM();
             return 0x8109;
         }

@@ -19,11 +19,11 @@ public class ClientWrapper {
         proxy = new ServiceProxy(id);
     }
 
-    public byte[] executeOrdered(byte[] request) {
+    public byte[] invokeOrdered(byte[] request) {
         return this.proxy.invokeOrdered(request);
     }
 
-    public byte[] executeUnordered(byte[] request) {
+    public byte[] invokeUnordered(byte[] request) {
         return this.proxy.invokeUnordered(request);
     }
 

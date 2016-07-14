@@ -2,4 +2,4 @@ all :
 	python -m compileall .
 
 clean :
-	rm *.pyc
+	rm -f *.pyc

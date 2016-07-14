@@ -1,8 +1,8 @@
-all:
-	;
+.PHONY: all clean
 
-clean:
-	;
+all:	;
+
+clean:	;
 
 
 

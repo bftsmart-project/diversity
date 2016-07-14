@@ -4,7 +4,12 @@ PASTABUILD := $(shell pwd)
 
 all : build 
 
-build : build/mark-proto build/mark-protoc build/mark-protopy build/mark-protoj
+build : build/mark-proto build/mark-protoc build/mark-protopy build/mark-protoj build/mark-protogo
+
+build/mark-protogo :
+	-mkdir build
+	cd protobuf-go; make
+	touch build/mark-protogo
 
 build/mark-proto :
 	-mkdir build	
@@ -45,5 +50,6 @@ build/mark-protoc : build/mark-proto
 clean :
 	cd protobuf-2.6.1; make clean
 	cd protobuf-c; make clean
+	cd protobuf-go; make clean
 	rm -rf build
 

@@ -3,17 +3,17 @@ package bftsmartserver
 import "bftsmart"
 
 type replica_definition interface {
-    executeOrdered([]byte) []byte
-    executeUnordered([]byte) []byte
-    getSnapshot() []byte
-    installSnapshot([]byte)
+    ExecuteOrdered([]byte) []byte
+    ExecuteUnordered([]byte) []byte
+    GetSnapshot() []byte
+    InstallSnapshot([]byte)
 }
 
 func StartServiceReplica(id int, classpath string, replica replica_definition) int {  
-	bftsmart.ExecuteOrderedImplementation = replica.executeOrdered
-	bftsmart.ExecuteUnorderedImplementation = replica.executeUnordered
-	bftsmart.GetSnapImplementation = replica.getSnapshot
-	bftsmart.InstallSnapImplementation = replica.installSnapshot
+	bftsmart.ExecuteOrderedImplementation = replica.ExecuteOrdered
+	bftsmart.ExecuteUnorderedImplementation = replica.ExecuteUnordered
+	bftsmart.GetSnapImplementation = replica.GetSnapshot
+	bftsmart.InstallSnapImplementation = replica.InstallSnapshot
 	bftsmart.Init()        
 	bftsmart.SetClasspath(classpath)
 	bftsmart.CarregarJvm() 

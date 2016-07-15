@@ -173,8 +173,8 @@ ENV/
 ### NetBeans ###
 nbproject/private/
 build/
-go/pkg/
-go/bin/
+*/*/go/pkg/
+*/*/go/bin/
 nbbuild/
 dist/
 nbdist/
@@ -213,3 +213,4 @@ protobuf/protobuf-go/core
 protobuf/protobuf-go/_obj
 protobuf/protobuf-go/_test
 protobuf/protobuf-go/_testmain.go
+*/*/go/main

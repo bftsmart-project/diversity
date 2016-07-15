@@ -12,17 +12,27 @@ export GOPATH
 
 
 
-.PHONY: all clean
+.PHONY: all clean client server
 
-all:	
+all: client server
+
+client:
 	-mkdir build
 	gcc -o build/wrapper.o -c dummy.c
 	gcc -o build/bftsmart-c-client.o -c dummy.c
 	gcc -o build/bftsmart-c-server.o -c dummy.c
-	go build -x main
-	go install main
+#	go build main
+	go build -o build/go-client.exe ./go-client
+
+server:
+	-mkdir build
+	gcc -o build/wrapper.o -c dummy.c
+	gcc -o build/bftsmart-c-client.o -c dummy.c
+	gcc -o build/bftsmart-c-server.o -c dummy.c
+#	go build main
+	go build -o build/go-server.exe ./go-server
 
 clean:
-	rm -rf pkg bin build *~ main;
+	rm -rf pkg bin build *~ main
 
 

@@ -33,7 +33,7 @@ cd $1
 echo
 echo
 
-$BASEFOLDER/build/go-server.exe $2 "-Djava.class.path=$BASEFOLDER/$LIBCLSPTH/BFT-SMaRt.jar:"\
+$BASEFOLDER/build/go-client.exe $2 "-Djava.class.path=$BASEFOLDER/$LIBCLSPTH/BFT-SMaRt.jar:"\
 "$BASEFOLDER/$LIBCLSPTH/slf4j-api-1.5.8.jar:"\
 "$BASEFOLDER/$LIBCLSPTH/slf4j-jdk14-1.5.8.jar:"\
 "$BASEFOLDER/$LIBCLSPTH/netty-all-4.0.25.Final.jar:"\

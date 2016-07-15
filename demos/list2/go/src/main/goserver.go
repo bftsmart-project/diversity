@@ -55,19 +55,12 @@ func (r replica) execute(command []byte) []byte {
         return data
 	} else if req.GetAction() == bftbench.Request_GET {
 	    val := req.GetValue()
-        res = false;
-        achou = false;
-        for _,element := range r.state {
-            if element == val {
-                achou = true
-                break
-            }
+        if val >= int32(len(r.state)) {
+            val = -1
+        } else {
+            val = r.state[val]
         }
-        if achou == false {
-            r.state = append(r.state, val)
-            res = true;
-        }
-        rsp.BoolResponse = &res
+        rsp.IntResponse = &val
         data, err := proto.Marshal(rsp)
         checkError(err)
         return data
@@ -75,14 +68,15 @@ func (r replica) execute(command []byte) []byte {
 	    val := req.GetValue()
         res = false;
         achou = false;
-        for _,element := range r.state {
+        for index,element := range r.state {
             if element == val {
                 achou = true
+                val = int32(index)
                 break
             }
         }
-        if achou == false {
-            r.state = append(r.state, val)
+        if achou == true {
+            r.state = append(r.state[:val], r.state[val+1:]...)
             res = true;
         }
         rsp.BoolResponse = &res
@@ -90,20 +84,8 @@ func (r replica) execute(command []byte) []byte {
         checkError(err)
         return data
 	} else if req.GetAction() == bftbench.Request_SIZE {
-	    val := req.GetValue()
-        res = false;
-        achou = false;
-        for _,element := range r.state {
-            if element == val {
-                achou = true
-                break
-            }
-        }
-        if achou == false {
-            r.state = append(r.state, val)
-            res = true;
-        }
-        rsp.BoolResponse = &res
+	    val := int32(len(r.state))
+        rsp.IntResponse = &val
         data, err := proto.Marshal(rsp)
         checkError(err)
         return data
@@ -117,8 +99,7 @@ func (r replica) execute(command []byte) []byte {
                 break
             }
         }
-        if achou == false {
-            r.state = append(r.state, val)
+        if achou == true {
             res = true;
         }
         rsp.BoolResponse = &res

@@ -15,7 +15,7 @@ bench_server:
 .PHONY: clean
 
 clean:
-	rm -fv *.o *~ *.out build
+	rm -rfv *.o *~ *.out build
 
 
 

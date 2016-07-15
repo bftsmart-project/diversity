@@ -5,5 +5,5 @@ all :
 .PHONY : clean
 
 clean :
-	rm *.pyc
+	rm -rfv *.pyc
 

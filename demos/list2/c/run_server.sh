@@ -8,22 +8,27 @@ set -e
 
 BASEFOLDER=`pwd`/`dirname $0`
 
+#caminhos relativos a seguir sempre em relacao a basefolder
+
+# bibliotecas (bft smart, netty etc)
 LIBCLSPTH=../../../lib
-DIVCLSPTH=../../../bft-smart/java/dist
-FACDCLSPTH=../../../python
-DLLCLSPTH=../../../bft-smart/intermediate/dist
+# intermediarios python
+FACDCLSPTH=../../../diversity/python
+# dll libbftsmr.so
+DLLCLSPTH=../../../diversity/c/build
+# mensagens compiladas
 PROTOCLSPTH=../protobuf/build
 
-PASTAJAVA=$($BASEFOLDER/../../../../util/findjava.sh)
+#pasta onde o java esta instalado no sistema.
+PASTAJAVA=$(../../../scripts/findjava.sh)
 
 export LD_LIBRARY_PATH=$PASTAJAVA/jre/lib/amd64/server
-export PYTHONPATH=$BASEFOLDER/$FACDCLSPTH:$BASEFOLDER:$BASEFOLDER/$PROTOCLSPTH:$BASEFOLDER/../../protobuf/build/lib/python2.7/site-packages
+export PYTHONPATH=$BASEFOLDER/$FACDCLSPTH:$BASEFOLDER:$BASEFOLDER/$PROTOCLSPTH:$BASEFOLDER/../../../protobuf/build/lib/python2.7/site-packages
 
 echo 'Library path' $LD_LIBRARY_PATH
 echo 'python path' $PYTHONPATH
 
 cd $1
-
 
 echo
 echo
@@ -34,7 +39,6 @@ $BASEFOLDER/build/bench_server.out $2 "-Djava.class.path=$BASEFOLDER/$LIBCLSPTH/
 "$BASEFOLDER/$LIBCLSPTH/netty-all-4.0.25.Final.jar:"\
 "$BASEFOLDER/$LIBCLSPTH/commons-codec-1.5.jar:"\
 "$BASEFOLDER/$LIBCLSPTH/core-0.1.4.jar:"\
-"$BASEFOLDER/$DIVCLSPTH/bftsmart-diversity.jar"
-
+"$BASEFOLDER/../../../diversity/java/build/bftsmart-diversity.jar"
 
 

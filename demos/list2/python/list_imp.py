@@ -5,11 +5,12 @@ import sys
 import Estado_pb2
 import Request_pb2
 import Response_pb2
+from bftsmart_serverlib import *
 
 
 class BFTList(BFTSMaRtServer):
-    def __init__(self,id):
-        super(BFTList,self).__init__(id)      # chama o construtor da classe base
+    def __init__(self,classpth,id,dllpath):
+        super(BFTList,self).__init__(classpth,id,dllpath)
         self.state = list()        
 
     def execute(self, input):

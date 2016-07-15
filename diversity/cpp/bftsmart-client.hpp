@@ -1,15 +1,16 @@
 #include "includes.h"
+#include <bftsmart-wrapper.h>
 
 using namespace std;
 
 namespace bftsmart {
 
-class ServiceProxy {
+class BftSmartClient {
 public:
-	ServiceProxy(int id, string classpath);
+	BftSmartClient(int id, string classpath);
 	int invokeUnordered(BYTE request[], int size, BYTE response[]);
 	int invokeOrdered(BYTE request[], int size, BYTE response[]);
-	~ServiceProxy();
+	~BftSmartClient();
 };
 
 }

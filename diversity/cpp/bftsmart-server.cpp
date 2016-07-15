@@ -1,10 +1,10 @@
-#include "DefaultSingleRecoverable.h"
+#include "bftsmart-server.hpp"
 
 namespace bftsmart
 {
 class FunctionCall {
 public:
-    static bftsmart::DefaultSingleRecoverable* instance;
+    static bftsmart::BftSmartServer* instance;
     static int callExecOrd(BYTE req[], int sz, BYTE**resp);
     static int callExecUnord(BYTE req[], int sz, BYTE**resp);
     static int callgetsnap(BYTE** resp);
@@ -33,7 +33,7 @@ void bftsmart::FunctionCall::callRelease(BYTE mem[]) {
 	free(mem);
 }
 
-bftsmart::DefaultSingleRecoverable::DefaultSingleRecoverable(int id, string classpath)
+bftsmart::BftSmartServer::BftSmartServer(int id, string classpath)
 {
 	setClasspath(classpath.c_str());
 	carregarJvm();
@@ -49,7 +49,7 @@ bftsmart::DefaultSingleRecoverable::DefaultSingleRecoverable(int id, string clas
 	startServiceReplica(id);
 }
 
-bftsmart::DefaultSingleRecoverable::~DefaultSingleRecoverable()
+bftsmart::BftSmartServer::~BftSmartServer()
 {
 	finalizarJvm();
 }

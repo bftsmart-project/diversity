@@ -1,10 +1,11 @@
 #include "includes.h"
+#include <bftsmart-wrapper.h>
 
 using namespace std;
 
 namespace bftsmart {
 
-class DefaultSingleRecoverable {
+class BftSmartServer {
 public:
 	virtual int appExecuteOrdered(BYTE request[], int size, BYTE ** response) = 0;
 	virtual int executeUnordered(BYTE request[], int size, BYTE ** response) = 0;
@@ -12,8 +13,8 @@ public:
 	virtual void installSnapshot(BYTE state[], int size) = 0;
 
 protected:
-	DefaultSingleRecoverable(int id, string classpath);
-	~DefaultSingleRecoverable();
+	BftSmartServer(int id, string classpath);
+	~BftSmartServer();
 };
 
 }

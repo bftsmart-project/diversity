@@ -23,6 +23,6 @@ all:
 	go install main
 
 clean:
-	rm -rf pkg/* bin/* build;
+	rm -rf pkg bin build *~ main;
 
 

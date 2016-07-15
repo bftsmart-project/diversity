@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
-#include <bftsmart-wrapper.h>
+#include <bftsmart-c-server.h>
 #include <Vazio.pb.h>
 
 

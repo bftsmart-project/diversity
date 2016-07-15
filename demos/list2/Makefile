@@ -4,6 +4,7 @@ all :
 	cd c; make
 	cd cpp; make
 	cd java; make
+	cd go; make
 
 
 clean :
@@ -12,3 +13,4 @@ clean :
 	cd c; make clean
 	cd cpp; make clean
 	cd java; make clean
+	cd go; make clean

@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <bftsmart-wrapper.h>
+#include <bftsmart-c-server.h>
 #include <Request.pb-c.h>
 #include <Response.pb-c.h>
 #include <Estado.pb-c.h>

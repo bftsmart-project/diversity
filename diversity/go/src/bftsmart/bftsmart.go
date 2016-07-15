@@ -1,6 +1,7 @@
 package bftsmart
 
 // #include "init-go.h"
+// #include <bftsmart-c-client.h>
 import "C"
 import "unsafe"
 

@@ -1,5 +1,5 @@
 #include "includes.h"
-#include <bftsmart-wrapper.h>
+#include <bftsmart-c-client.h>
 
 using namespace std;
 

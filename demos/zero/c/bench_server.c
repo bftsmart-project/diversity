@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <bftsmart-wrapper.h>
+#include <bftsmart-c-server.h>
 #include <Vazio.pb-c.h>
 
 #define NAO_UTILIZADA(x) (void)(x)

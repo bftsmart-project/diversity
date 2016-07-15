@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <cstdint>
 #include <bftsmart_diversity_ServerWrapper.h>
-#include "bftsmart-wrapper.h"
+#include "bftsmart-c-server.h"
 
 /* todo: ajustar para overflow nas funcoes do JNI */
 
@@ -12,19 +12,12 @@
 #define BFT_UNUSED(x) (void)(x)
 #define DEBUG 0
 
-typedef signed char BFT_BYTE;
+
 
 namespace bftsmartdiversity {
     /* todo: em vez de usar classe Java ServerWrapper e ClientWrapper, usar
              diretamente as classes ServiceProxy e ServiceReplica */
-    jobject serviceProxy;
     jobject serviceReplica;
-    JavaVM *jvm;
-    JNIEnv *env;
-    jmethodID invokeOrderedMethod;
-    jmethodID invokeUnorderedMethod;
-    /* classpath padrao: execucao direto de dentro do diretorio do bft-smart */
-    const char * classpath = "-Djava.class.path=dist/BFT-SMaRt.jar:lib/slf4j-api-1.5.8.jar:lib/slf4j-jdk14-1.5.8.jar:lib/netty-3.1.1.GA.jar:lib/commons-codec-1.5.jar";
     int (*executeOrderedImplementation) (BFT_BYTE [], int, BFT_BYTE **);
     int (*executeUnorderedImplementation) (BFT_BYTE [], int, BFT_BYTE **);
     int (*getSnapshotImplementation) (BFT_BYTE **);
@@ -37,150 +30,8 @@ namespace bftsmartdiversity {
 
 extern "C" {
 
-    void setClasspath(const char* cp) {
-        bftsmartdiversity::classpath = cp;
-    }
+   
 
-    int carregarJvm() {
-        JavaVMInitArgs vm_args; /* argumentos de inicializacao da JVM */
-        JavaVMOption* options = new JavaVMOption[1];
-
-        options[0].optionString = (char*) bftsmartdiversity::classpath;
-
-        vm_args.version = JNI_VERSION_1_6; /* 1_6 mesmo, mesmo para Java 7 */
-        vm_args.nOptions = 1;
-        vm_args.options = options;
-        vm_args.ignoreUnrecognized = false;
-        /* load and initialize a Java VM, return a JNI interface
-         * pointer in env */
-        JNI_CreateJavaVM(&bftsmartdiversity::jvm, (void**) &bftsmartdiversity::env, &vm_args);
-        delete options;
-	return 0;
-    }
-
-    int createServiceProxy(int id) {
-        JavaVM *jvm; /* representa uma VM Java */
-        JNIEnv *env; /* ponteiro para a interface de metodos nativos */
-        jvm = bftsmartdiversity::jvm;
-        env = bftsmartdiversity::env;
-
-        /* invoke the Main.test method using the JNI */
-        jclass cls = env->FindClass("bftsmart/diversity/ClientWrapper");
-
-        if (cls == NULL) {
-            std::cout << "ERRO no FindClass diversity" << std::endl;
-            jvm->DestroyJavaVM();
-            return 0x8100;
-        }
-
-        jint arg = (jint) id;
-        jmethodID constru = env->GetMethodID(cls, "<init>", "(I)V");
-        if (constru == NULL) {
-            std::cout << "ERRO ao construir wrapper getmid" << std::endl;
-            jvm->DestroyJavaVM();
-            return 0x8200;
-        }
-
-        bftsmartdiversity::serviceProxy = env->NewObject(cls, constru, arg);
-        if (bftsmartdiversity::serviceProxy == NULL) {
-            std::cout << "ERRO ao construir wrapper int. srvprox" << std::endl;
-            jvm->DestroyJavaVM();
-            return 0x8201;
-        }
-
-        bftsmartdiversity::invokeOrderedMethod = env->GetMethodID(cls, "invokeOrdered", "([B)[B");
-        bftsmartdiversity::invokeUnorderedMethod = env->GetMethodID(cls, "invokeUnordered", "([B)[B");
-        if (bftsmartdiversity::invokeOrderedMethod == NULL || bftsmartdiversity::invokeUnorderedMethod == NULL) {
-            std::cout << "ERRO ao obter execute(un) ordered  " << std::endl;
-            jvm->DestroyJavaVM();
-            return 0x8107;
-        }
-
-        return 0x0;
-    }
-
- void * bftsmartallocate(size_t tamanho) {
-void * alocad = malloc(tamanho);
-if (DEBUG)
-std::cout << "alocando - " << tamanho << "--" << (int64_t)alocad << std::endl;
-return malloc(tamanho);
- }
-    void  bftsmartrelease(void * ponteiro) {
-        free(ponteiro);
-    }
-
-    // todo: checar overflow .
-
-    int invokeOrdered(BFT_BYTE command[], int tamanho, BFT_BYTE saida[]) {
-        JavaVM *jvm; /* representa uma VM Java */
-        JNIEnv *env; /* ponteiro para a interface de metodos nativos */
-        jvm = bftsmartdiversity::jvm;
-        env = bftsmartdiversity::env;
-
-        /* apenas para fins de debug
-        printf("tamanho: %d\n",tamanho);
-        for (int i=0;i<tamanho;i++) 
-        {
-            printf("%x ",command[i]);
-        }
-        printf("\n");
-         fim do debug*/
-
-        jbyteArray arrayJava = env->NewByteArray(tamanho);
-        env->SetByteArrayRegion(arrayJava, 0, tamanho, (jbyte*) command);
-
-        jbyteArray result = (jbyteArray) (env->CallObjectMethod(bftsmartdiversity::serviceProxy,
-                bftsmartdiversity::invokeOrderedMethod, arrayJava));
-
-        if (result == NULL) {
-            std::cout << "erro o chamar invoke ordered" << std::endl;
-            jvm->DestroyJavaVM();
-            return 0x8109;
-        }
-        jint saidaT = env->GetArrayLength(result);
-        env->GetByteArrayRegion(result, 0, saidaT, (jbyte*) saida);
-
-        /* apenas para fins de debug
-        printf("tamanho: %d\n",saidaT);
-        for (int i=0;i<saidaT;i++) 
-        {
-            printf("%x ",saida[i]);
-        }
-        printf("\n");
-        fim do debug */
-
-
-        return (int) saidaT;
-    }
-
-    // todo: checar overflow .
-
-    int invokeUnordered(BFT_BYTE command[], int tamanho, BFT_BYTE saida[]) {
-        JavaVM *jvm; /* representa uma VM Java */
-        JNIEnv *env; /* ponteiro para a interface de metodos nativos */
-        jvm = bftsmartdiversity::jvm;
-        env = bftsmartdiversity::env;
-
-        jbyteArray arrayJava = env->NewByteArray(tamanho);
-        env->SetByteArrayRegion(arrayJava, 0, tamanho, (jbyte*) command);
-
-        jbyteArray result = (jbyteArray) (env->CallObjectMethod(bftsmartdiversity::serviceProxy,
-                bftsmartdiversity::invokeUnorderedMethod, arrayJava));
-
-        if (result == NULL) {
-            std::cout << "erro o chamar invoke unordered" << std::endl;
-            jvm->DestroyJavaVM();
-            return 0x8109;
-        }
-        jint saidaT = env->GetArrayLength(result);
-        env->GetByteArrayRegion(result, 0, saidaT, (jbyte*) saida);
-        return (int) saidaT;
-    }
-
-    void finalizarJvm() {
-        /* todo: descarregar corretamente os objetos do java (serviceproxy e servicereplica) */
-        bftsmartdiversity::jvm->DestroyJavaVM();
-    }
 
     void implementExecuteOrdered(int (*impl) (BFT_BYTE [], int, BFT_BYTE **)) {
         bftsmartdiversity::executeOrderedImplementation = impl;

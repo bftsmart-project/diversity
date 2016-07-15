@@ -1,7 +1,7 @@
 #ifndef BFTSMART_GO_SHIM_INCL
 #define BFTSMART_GO_SHIM_INCL
 
-#include <bftsmart-wrapper.h>
+#include <bftsmart-c-server.h>
 
 void init_go();
 

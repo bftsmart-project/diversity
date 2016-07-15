@@ -9,7 +9,7 @@ SFX += ../../../protobuf/build/lib/libprotobuf.a
 
 bench_server: 
 	-mkdir build
-	g++ $(CPFLAGS) -o build/bench_server.out $(INCL) $(LIBS) ../protobuf/build/*.pb.cc bench_server.cpp ../../../diversity/c/build/wrapper.o $(SFX) -ljvm
+	g++ $(CPFLAGS) -o build/bench_server.out $(INCL) $(LIBS) ../protobuf/build/*.pb.cc bench_server.cpp ../../../diversity/c/build/wrapper.o ../../../diversity/c/build/bftsmart-c-server.o $(SFX) -ljvm
 
 .PHONY: clean
 

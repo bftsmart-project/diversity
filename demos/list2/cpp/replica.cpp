@@ -1,14 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <bftsmart-c-server.h>
 #include <Estado.pb.h>
 #include <Request.pb.h>
 #include <Response.pb.h>
 #include <list>
+#include "replica.h"
 
-
-#define NAO_UTILIZADA(x) (void)(x)
-
+/* estado da replica. neste caso, a lista */
 std::list<int> state;
 
 bool buscarlista(int val)
@@ -78,16 +76,15 @@ int execute(BFT_BYTE cmd[], int siz, BFT_BYTE ** mem) {
     return tamanho;
 }
 
-int execOrd(BFT_BYTE  cmd[], int siz, BFT_BYTE ** out) {    
+int replica::appExecuteOrdered(BYTE cmd[], int siz, BYTE ** out) {    
     return execute(cmd, siz, out);
 }
 
-int execUnord(BFT_BYTE  cmd[], int siz, BFT_BYTE ** out) {
-    return execute(cmd, siz, out);
-
+int replica::executeUnordered(BYTE cmd[], int siz, BYTE ** out) {
+     return execute(cmd, siz, out);
 }
 
-void installSnap(BFT_BYTE  stateNovo[], int siz) {
+void replica::installSnapshot(BYTE stateNovo[], int siz) {
     using namespace bftbench;
 
     Estado est;
@@ -105,7 +102,8 @@ void installSnap(BFT_BYTE  stateNovo[], int siz) {
     
 }
 
-int getSnap(BFT_BYTE  ** mem) {
+
+int replica::getSnapshot(BYTE ** mem) {
     using namespace bftbench;
     Estado est;
     est.Clear();
@@ -123,35 +121,22 @@ int getSnap(BFT_BYTE  ** mem) {
     return tamanho;
 }
 
-void release(BFT_BYTE * mem)
-{
-  free(mem);
-}
-
 int main(int argc, char* argv[]) {
-   if (argc == 1)                                                                
-    {                                                                             
-        printf("Usage: %s id_replica classpath_java\n",                           
-                argv[0]);                                                         
-        return -1;                                                                
-    }                                                                             
-                                                                                  
-    if (argc < 3) {                                                               
-        printf("%s", "Argumentos invalidos.\n");                                  
-        return -1;                                                                
+   if (argc == 1)
+    {
+        printf("Usage: %s id_replica classpath_java\n", argv[0]);
+        return -1;
     }
 
-    setClasspath(argv[2]);
-    carregarJvm();
-    implementExecuteOrdered(&execOrd);
-    implementExecuteUnordered(&execUnord);
-    implementInstallSnapshot(&installSnap);
-    implementgetSnapshot(&getSnap);
-    implementReleaseGetSnapshotBuffer(&release);
-    implementReleaseExecuteOrderedBuffer(&release);
-    implementReleaseExecuteUnorderedBuffer(&release);
+    if (argc < 3) {
+        printf("%s", "Argumentos invalidos.\n");
+        return -1;
+    }
 
-    startServiceReplica(atoi(argv[1]));
-    finalizarJvm();
+    replica r(atoi(argv[1]), argv[2]);
     return 0;
 }
+
+
+
+

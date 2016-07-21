@@ -13,6 +13,8 @@ public:
 };
 }
 
+bftsmart::BftSmartServer* bftsmart::FunctionCall::instance;
+
 int bftsmart::FunctionCall::callExecOrd(BYTE req[], int sz, BYTE**resp) {
 	return instance->appExecuteOrdered(req,sz,resp);
 }

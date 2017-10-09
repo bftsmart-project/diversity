@@ -14,7 +14,7 @@ all :
 	cd build/go; go install bftbench; 
 	-mkdir build/classes
 	cd build; javac -cp ../../../../protobuf/build/protobuf-runtime.jar -d classes bftbench/*.java
-	cd build; jar cf lista-proto.jar bftbench
+	cd build/classes; jar cf ../lista-proto.jar bftbench
 
 
 clean :

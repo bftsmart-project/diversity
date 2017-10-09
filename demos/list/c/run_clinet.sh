@@ -7,8 +7,6 @@
 set -e
 
 BASEFOLDER=`pwd`/`dirname $0`
-echo $BASEFOLDER
-
 
 #caminhos relativos a seguir sempre em relacao a basefolder
 
@@ -24,22 +22,22 @@ PROTOCLSPTH=../protobuf/build
 #pasta onde o java esta instalado no sistema.
 PASTAJAVA=$(../../../scripts/findjava.sh)
 
-ls -l $BASEFOLDER/../protobuf/build/lista-proto.jar
-
 export LD_LIBRARY_PATH=$PASTAJAVA/jre/lib/amd64/server
+export PYTHONPATH=$BASEFOLDER/$FACDCLSPTH:$BASEFOLDER:$BASEFOLDER/$PROTOCLSPTH:$BASEFOLDER/../../../protobuf/build/lib/python2.7/site-packages
 
 echo 'Library path' $LD_LIBRARY_PATH
+echo 'python path' $PYTHONPATH
 
 cd $1
 
 echo
 echo
 
-java -cp "$BASEFOLDER/$LIBCLSPTH/*:"\
-"$BASEFOLDER/../../../protobuf/build/protobuf-runtime.jar:"\
-"$BASEFOLDER/../protobuf/build/lista-proto.jar:"\
-"$BASEFOLDER/../../../diversity/java/build/bftsmart-diversity.jar:"\
-"$BASEFOLDER/build/bench_server.jar" bftsmart.diversity.demos.list.ServerLaunch $2 10000
-
-
+$BASEFOLDER/build/test_client.out $2 "-Djava.class.path=$BASEFOLDER/$LIBCLSPTH/BFT-SMaRt.jar:"\
+"$BASEFOLDER/$LIBCLSPTH/slf4j-api-1.5.8.jar:"\
+"$BASEFOLDER/$LIBCLSPTH/slf4j-jdk14-1.5.8.jar:"\
+"$BASEFOLDER/$LIBCLSPTH/netty-all-4.0.25.Final.jar:"\
+"$BASEFOLDER/$LIBCLSPTH/commons-codec-1.5.jar:"\
+"$BASEFOLDER/$LIBCLSPTH/core-0.1.4.jar:"\
+"$BASEFOLDER/../../../diversity/java/build/bftsmart-diversity.jar"
 

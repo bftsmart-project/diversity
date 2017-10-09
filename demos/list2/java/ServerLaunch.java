@@ -4,7 +4,8 @@
  * and open the template in the editor.
  */
 package bftsmart.diversity.demos.list;
-
+import java.net.URL;
+import java.net.URLClassLoader;
 /**
  *
  * @author caio
@@ -12,7 +13,19 @@ package bftsmart.diversity.demos.list;
 public class ServerLaunch {
     
     
-    public static void main(String[] args){
+    public static void main(String[] args) throws ClassNotFoundException {
+
+        ClassLoader cl = ClassLoader.getSystemClassLoader();
+
+        URL[] urls = ((URLClassLoader)cl).getURLs();
+
+        for(URL url: urls){
+        	System.out.println(url.getFile());
+        }
+
+	Class.forName("bftbench.RequestOuterClass");
+	Class.forName("bftbench.RequestOuterClass$Request");
+
           if(args.length < 2) {
             System.out.println("Use: java Serverlaunch <processId>");
             System.exit(-1);

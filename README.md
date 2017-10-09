@@ -3,7 +3,8 @@ bftsmart-diversity is a library for creating diversified applications in BFT-SMa
 
 ## Requirements
 * GNU Make
-* java-7-openjdk-amd64 (should work with Java 8, but must be 64bit at the moment)
+* Java (tested with 1.8.0_131)
+* Go (only tested with v1.6.3 linux/amd64)
 * Following libraries in lib:
     * BFT-SMaRt.jar  
     * commons-codec-1.5.jar  
@@ -12,13 +13,17 @@ bftsmart-diversity is a library for creating diversified applications in BFT-SMa
     * slf4j-api-1.5.8.jar  
     * slf4j-jdk14-1.5.8.jar
 * gcc and g++
-* python
+* python (tested with 2.7.13)
 * python setuptools
+* autoconf
+* libtool
 
 ## Building
 1. Run make
 2. That's all!
 
 ## Running
-Use the "run_demo.sh" script in each demo folder.
+Demos and scripts for running them are work-in-progress, check out the ".sh" script in each demo folder for an idea on how to run them.
 
+## Issues
+Currently the project runs but any message timeouts the system, a solution is expected in the upcoming days.

@@ -1,6 +1,0 @@
-package bftbench;
-
-message Estado
-{
-	repeated int32 lista = 1;
-}

@@ -1,6 +1,6 @@
 .PHONY : clean all
 
-all : 
+all :
 	cd java; make
 	cd c; make
 	cd go; make

@@ -13,8 +13,8 @@ all : build/libbftsmr.so
 
 build/bftsmart_diversity_ClientWrapper%h build/bftsmart_diversity_ServerWrapper%h : ../java/build/bftsmart-diversity.jar
 	-mkdir build
-	javah -force -d build -verbose -classpath ../../lib/BFT-SMaRt.jar:../java/build/bftsmart-diversity.jar bftsmart.diversity.ServerWrapper
-	javah -force -d build -verbose -classpath ../../lib/BFT-SMaRt.jar:../java/build/bftsmart-diversity.jar bftsmart.diversity.ClientWrapper
+	javah -force -d build -verbose -classpath ../../bftsmart/bin/BFT-SMaRt.jar:../java/build/bftsmart-diversity.jar bftsmart.diversity.ServerWrapper
+	javah -force -d build -verbose -classpath ../../bftsmart/bin/BFT-SMaRt.jar:../java/build/bftsmart-diversity.jar bftsmart.diversity.ClientWrapper
 
 build/bftsmart-c-client.o : build/wrapper.o build/bftsmart_diversity_ClientWrapper.h bftsmart-c-client.cpp
 	g++ $(CPFLAGS) -fPIC -o build/bftsmart-c-client.o $(INCL) $(LIBS) -c bftsmart-c-client.cpp -ljvm 

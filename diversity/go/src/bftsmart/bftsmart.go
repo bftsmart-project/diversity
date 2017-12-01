@@ -12,11 +12,13 @@ C.init_go()
 type ExecuteFunc func([]byte)[]byte
 type GetSnapFunc func()[]byte
 type InstallSnapFunc func([]byte)
+type FunctionCallTestFunc func()
 
 var ExecuteOrderedImplementation ExecuteFunc
 var ExecuteUnorderedImplementation ExecuteFunc
 var GetSnapImplementation GetSnapFunc
 var InstallSnapImplementation InstallSnapFunc
+var FunctionCallTestImplementation FunctionCallTestFunc
 
 //export executeOrderedGo
 func executeOrderedGo(command *C.BFT_BYTE, size C.int, output **C.BFT_BYTE) C.int {
@@ -50,6 +52,11 @@ func installSnapshotGo(data *C.BFT_BYTE, size C.int) {
 //export releaseBufferGo
 func releaseBufferGo(impl *C.BFT_BYTE) {
 	bftsmartrelease(unsafe.Pointer(impl))	
+}
+
+//export functionCallTestGo
+func functionCallTestGo() {
+
 }
 
 func CarregarJvm() int {                          

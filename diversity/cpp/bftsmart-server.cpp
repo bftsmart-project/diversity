@@ -10,12 +10,16 @@ public:
     static int callgetsnap(BYTE** resp);
     static void callinstall(BYTE stt[], int sz);
     static void callRelease(BYTE mem[]);
+	static void fCallTest() { 
+		printf("fCallTest called\n");
+	}
 };
 }
 
 bftsmart::BftSmartServer* bftsmart::FunctionCall::instance;
 
 int bftsmart::FunctionCall::callExecOrd(BYTE req[], int sz, BYTE**resp) {
+	printf("bftsmart::FunctionCall::callExecOrd\n");
 	return instance->appExecuteOrdered(req,sz,resp);
 }
 
@@ -38,8 +42,10 @@ void bftsmart::FunctionCall::callRelease(BYTE mem[]) {
 bftsmart::BftSmartServer::BftSmartServer(int id, string classpath)
 {
 	setClasspath(classpath.c_str());
-	carregarJvm();
-        bftsmart::FunctionCall::instance = this;
+	carregarJvm();    
+	this->replicaId = id;
+	
+	implementfunctionCallTest(&bftsmart::FunctionCall::fCallTest);
 	implementExecuteOrdered(&bftsmart::FunctionCall::callExecOrd);
 	implementExecuteUnordered(&bftsmart::FunctionCall::callExecUnord);
 	implementgetSnapshot(&bftsmart::FunctionCall::callgetsnap);
@@ -47,8 +53,15 @@ bftsmart::BftSmartServer::BftSmartServer(int id, string classpath)
 	implementReleaseGetSnapshotBuffer(&bftsmart::FunctionCall::callRelease);
 	implementReleaseExecuteOrderedBuffer(&bftsmart::FunctionCall::callRelease);
 	implementReleaseExecuteUnorderedBuffer(&bftsmart::FunctionCall::callRelease);
+	
+	/* startServiceReplica(id); */
+}
 
-	startServiceReplica(id);
+void bftsmart::BftSmartServer::startService()
+{
+	bftsmart::FunctionCall::instance = this;
+	
+	startServiceReplica(this->replicaId);
 }
 
 bftsmart::BftSmartServer::~BftSmartServer()

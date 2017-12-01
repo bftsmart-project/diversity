@@ -1,29 +1,37 @@
 # bftsmart-diversity
-bftsmart-diversity is a library for creating diversified applications in BFT-SMaRt.
+bftsmart-diversity is a library for creating applications in BFT-SMaRt with diversity.
+
+## Cloning
+
+This project must be cloned with the `--recursive` option, in order to also clone sub-repositories containing dependencies.
+
+    git clone --recursive https://github.com/caioycosta/bftsmart-diversity.git
+
 
 ## Requirements
-* GNU Make
-* Java (tested with 1.8.0_131)
-* Go (only tested with v1.6.3 linux/amd64)
-* Following libraries in lib:
-    * BFT-SMaRt.jar  
-    * commons-codec-1.5.jar  
-    * core-0.1.4.jar  
-    * netty-all-4.0.25.Final.jar  
-    * slf4j-api-1.5.8.jar  
-    * slf4j-jdk14-1.5.8.jar
-* gcc and g++
-* python (tested with 2.7.13)
-* python setuptools
-* autoconf
-* libtool
+For Ubuntu distributions, run the script
+
+    ./install_prereqs.sh
+
+to install all required packages. If not on a Ubuntu distributions, you need the following packages or equivalents:
+
+* build-essential 
+* autoconf 
+* libtool 
+* make 
+* openjdk-8-jdk 
+* python-setuptools 
+* pkg-config 
+* golang
 
 ## Building
 1. Run make
 2. That's all!
 
 ## Running
-Demos and scripts for running them are work-in-progress, check out the ".sh" script in each demo folder for an idea on how to run them.
+Demos are in the demos/ folder. Do the following in order to run the helper script which guides you through running a demo.
 
-## Issues
-Currently the project runs but any message timeouts the system, a solution is expected in the upcoming days.
+    cd demos
+    ./run_demos.sh
+
+

@@ -15,6 +15,7 @@ extern "C" {
     void implementReleaseExecuteOrderedBuffer(void (*impl) (BFT_BYTE*));
     void implementReleaseExecuteUnorderedBuffer(void (*impl) (BFT_BYTE*));
     void implementReleaseGetSnapshotBuffer(void (*impl) (BFT_BYTE*));
+	void implementfunctionCallTest(void (*impl) (void));
 #ifdef __cplusplus
 } /* extern "C" */
 #endif

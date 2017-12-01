@@ -1,0 +1,3 @@
+[submodule "bftsmart/library"]
+	path = bftsmart/library
+	url = https://github.com/caioycosta/library.git

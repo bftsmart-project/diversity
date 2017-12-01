@@ -10,7 +10,7 @@
 /* define utilizado para sinalizar ao compilador
    que alguma variavel realmente nao e utilizada */
 #define BFT_UNUSED(x) (void)(x)
-#define DEBUG 0
+#define DEBUG 1
 
 
 

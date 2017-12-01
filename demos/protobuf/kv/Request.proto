@@ -1,0 +1,15 @@
+package bftbench;
+
+message Request
+{
+	enum RequestType {
+		PUT = 0;
+		GET = 1;
+		DELETE = 2;
+		LIST = 3;
+	}
+
+	required RequestType action = 1;
+	optional string key = 2;
+	optional string value = 3;
+}

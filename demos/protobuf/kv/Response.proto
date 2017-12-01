@@ -1,0 +1,11 @@
+package bftbench;
+
+
+
+
+message Response
+{
+	optional bool BoolResponse = 1;
+	optional string StringResponse = 2;
+	repeated string ListResponse = 3;
+}

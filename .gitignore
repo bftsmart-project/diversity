@@ -197,7 +197,7 @@ buildNumber.properties
 
 ### Customizado . ###
 protobuf/protobuf-2.6.1/*
-protobuf/protobuf-c/*
+#protobuf/protobuf-c/*
 protobuf/protobuf-go/*
 protobuf/protobuf-go/*.DS_Store
 protobuf/protobuf-go/*.[568ao]

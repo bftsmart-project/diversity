@@ -1,6 +1,7 @@
 package bftsmartserver
 
 import "bftsmart"
+import "time"
 
 type replica_definition interface {
     ExecuteOrdered([]byte) []byte
@@ -17,7 +18,12 @@ func StartServiceReplica(id int, classpath string, replica replica_definition) i
 	bftsmart.Init()        
 	bftsmart.SetClasspath(classpath)
 	bftsmart.CarregarJvm() 
-	return int(bftsmart.StartServiceReplica(id))
+	ret := int(bftsmart.StartServiceReplica(id))
+	for true {
+		time.Sleep(1 * time.Second)
+	}
+	return ret
+	
 }                                                              
                                                   
 func FinalizarJvm() {                             

@@ -28,7 +28,7 @@ to install all required packages. If not on a Ubuntu distributions, you need the
 1. Run make
 2. That's all!
 
-**Note:** project was set-up to be built with Go version <= 1.8. If using newer Go releases, please refer to file `demos/go/Makefile` in order to adjust the build for it.
+**Note:** the project was set-up to be built with Go version **<= 1.8**. If you'd like to use more recent Go releases, please refer to the comments in files `demos/go/<name-of-demo>/Makefile` (i.e. the Makefile in all of the Go demos) in order to adjust the build for it.
 
 ## Running
 Demos are in the demos/ folder. Do the following in order to run the helper script which guides you through running a demo.

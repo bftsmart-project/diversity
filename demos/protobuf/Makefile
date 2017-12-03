@@ -8,5 +8,5 @@ all:
 clean:
 	cd zero; make clean
 	cd list2; make clean
-	cd kv; make
+	cd kv; make clean
 

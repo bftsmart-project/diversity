@@ -10,5 +10,5 @@ all :
 clean :
 	rm -rf bin
 	cd list2; make clean
-	cd list; make
+	cd list; make clean
 	cd kv; make clean

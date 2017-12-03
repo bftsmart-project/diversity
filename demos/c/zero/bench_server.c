@@ -57,6 +57,10 @@ int getSnap(BFT_BYTE ** mem) {
     return tamanho;
 }
 
+void fCallTest() {
+	printf("function call test\n");
+}
+
 int main(int argc, char* argv[]) {
 
     if (argc == 1)
@@ -77,6 +81,7 @@ int main(int argc, char* argv[]) {
     implementExecuteUnordered(&execUnord);
     implementInstallSnapshot(&installSnap);
     implementgetSnapshot(&getSnap);
+    implementfunctionCallTest(&fCallTest);
     implementReleaseGetSnapshotBuffer(&release);
     implementReleaseExecuteOrderedBuffer(&release);
     implementReleaseExecuteUnorderedBuffer(&release);

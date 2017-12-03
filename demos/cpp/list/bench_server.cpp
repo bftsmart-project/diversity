@@ -319,6 +319,10 @@ void release(BFT_BYTE * mem)
   free(mem);
 }
 
+void fCallTest() {                                                                                                    │teste@teste-virtual-m:~/bftsmart-diversity$                │teste@teste-virtual-m:~/bftsmart-diversity$ h.jsp
+printf("fcall test\n");                                                                                               │teste@teste-virtual-m:~/bftsmart-diversity$ the bug.       │# The crash happened outside the Java Virtual Machine in n
+}  
+
 int main(int argc, char* argv[]) {
   state = criarLista();
 
@@ -340,6 +344,7 @@ int main(int argc, char* argv[]) {
     carregarJvm();
     implementExecuteOrdered(&execOrd);
     implementExecuteUnordered(&execUnord);
+    implementfunctionCallTest(&fCallTest);
     implementInstallSnapshot(&installSnap);
     implementgetSnapshot(&getSnap);
     implementReleaseGetSnapshotBuffer(&release);

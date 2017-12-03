@@ -6,7 +6,7 @@ BASEFOLDER=`pwd`/`dirname $0`
 
 #sair imediatamente em caso de erro
 set -e
-
+echo "Running zero-plain server java..."
 java -cp "$BASEFOLDER/../../bftsmart/library/lib/*:"\
 "$BASEFOLDER/../../bftsmart/bin/BFT-SMaRt.jar:"\
 "$BASEFOLDER/bin/demo-java.jar" bftsmart.diversity.demos.zero.ServerLaunch $1 0

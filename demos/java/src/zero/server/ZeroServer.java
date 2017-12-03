@@ -49,11 +49,14 @@ public class ZeroServer extends DefaultSingleRecoverable {
         writeLatency = new Storage(interval);
         acceptLatency = new Storage(interval);
          }
+	System.out.println("building");
         new ServiceReplica(id, this, this);
         //estado = Testcount.Counter.newBuilder().setValue(0).build();
     }
 
     private byte[] execute(byte[] command, MessageContext msgCtx) {
+	System.out.println("executing");
+
 	return new byte[]{};
 /*        try {
 

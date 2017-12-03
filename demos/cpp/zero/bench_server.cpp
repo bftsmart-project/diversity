@@ -72,6 +72,10 @@ void release(BFT_BYTE * mem)
   free(mem);
 }
 
+void fCallTest() {
+printf("fcall test\n");
+}
+
 int main(int argc, char* argv[]) {
     if (argc == 1) 
     { 
@@ -92,6 +96,7 @@ int main(int argc, char* argv[]) {
     implementExecuteUnordered(&execUnord);
     implementInstallSnapshot(&installSnap);
     implementgetSnapshot(&getSnap);
+    implementfunctionCallTest(&fCallTest);
     implementReleaseGetSnapshotBuffer(&release);
     implementReleaseExecuteOrderedBuffer(&release);
     implementReleaseExecuteUnorderedBuffer(&release);

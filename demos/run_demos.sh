@@ -8,7 +8,7 @@ echo "Type in desired demo:"
 join <({ for i in */run_*_server.sh; do (basename $i _server.sh); done } | sed 's/run_//' | sort | uniq) <({ for i in */run_*_client.sh; do (basename $i _client.sh); done } | sed 's/run_//' | sort | uniq)
 echo " "
 echo -n ">"
-read
+if [ "$#" -ne 6 ]; then read; else REPLY=$1; fi
 DEMO=$REPLY
 
 for i in {0..3}
@@ -18,7 +18,8 @@ echo "Available languages:"
 find . -iname "run_$DEMO""_server.sh" | xargs -d'\n' -I'{}' bash -c 'basename $(dirname "{}")'
 echo " "
 echo -n ">"
-read
+N=$(($i+2))
+if [ "$#" -ne 6 ]; then read; else REPLY=${!N}; fi
 export SERVER$i=$REPLY
 done
 
@@ -27,7 +28,7 @@ echo "Available languages:"
 find . -iname "run_$DEMO""_client.sh" | xargs -d'\n' -I'{}' bash -c 'basename $(dirname "{}")'
 echo " "
 echo -n ">"
-read
+if [ "$#" -ne 6 ]; then read; else REPLY=$6; fi
 CLIENT=$REPLY
 
 cd ..
@@ -45,7 +46,7 @@ sleep 2
 xterm -T "SERVER 2 - $SERVER2" -e ./demos/$SERVER2/run_"$DEMO"_server.sh 2 &
 sleep 2
 xterm -T "SERVER 3 - $SERVER3" -e ./demos/$SERVER3/run_"$DEMO"_server.sh 3 &
-sleep 2
+sleep 6
 ./demos/$CLIENT/run_"$DEMO"_client.sh 7001
 
 echo "Finished script execution successfully."

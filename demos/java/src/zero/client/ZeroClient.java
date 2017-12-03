@@ -21,7 +21,7 @@ InputStreamReader converter = new InputStreamReader(System.in);
 BufferedReader in = new BufferedReader(converter);
 String lido;
 do {
-byte[] msg = new byte[]{};
+byte[] msg = new byte[]{}; 
 
 byte[] rsp = proxy.invokeOrdered(msg);
 byte[] rsp2 = proxy.invokeUnordered(msg);

@@ -319,8 +319,8 @@ void release(BFT_BYTE * mem)
   free(mem);
 }
 
-void fCallTest() {                                                                                                    │teste@teste-virtual-m:~/bftsmart-diversity$                │teste@teste-virtual-m:~/bftsmart-diversity$ h.jsp
-printf("fcall test\n");                                                                                               │teste@teste-virtual-m:~/bftsmart-diversity$ the bug.       │# The crash happened outside the Java Virtual Machine in n
+void fCallTest() {
+printf("fcall test\n");
 }  
 
 int main(int argc, char* argv[]) {

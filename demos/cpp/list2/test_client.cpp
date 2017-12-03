@@ -81,7 +81,7 @@ main (int argc, char *argv[])
 	    tamanho = req.ByteSize ();
 
 	    out = (BFT_BYTE *) malloc (tamanho);
-
+		req.SerializeToArray ((void *) out, tamanho);
 	    result = invokeOrdered (out, tamanho, saida);
 	    rsp.ParseFromArray ((const void *) saida, result);
 	    printf ("%s%d\n", "response:", rsp.boolresponse ());
@@ -95,6 +95,7 @@ main (int argc, char *argv[])
 	    req.set_value (cmd);
 	    tamanho = req.ByteSize ();
 	    out = (BFT_BYTE *) malloc (tamanho);
+	req.SerializeToArray ((void *) out, tamanho);
 	    result = invokeOrdered (out, tamanho, saida);
 	    rsp.ParseFromArray ((const void *) saida, result);
 	    printf ("%s%d\n", "response:", rsp.boolresponse ());
@@ -108,6 +109,7 @@ main (int argc, char *argv[])
 	    req.set_value (cmd);
 	    tamanho = req.ByteSize ();
 	    out = (BFT_BYTE *) malloc (tamanho);
+req.SerializeToArray ((void *) out, tamanho);
 	    result = invokeOrdered (out, tamanho, saida);
 	    rsp.ParseFromArray ((const void *) saida, result);
 	    printf ("%s%d\n", "response:", rsp.boolresponse ());

@@ -139,9 +139,10 @@ class ListaNormal(object):
         return 0
         
 class BFTList(BFTSMaRtServer):
-    def __init__(self,id):
-        super(BFTList,self).__init__(id)      # chama o construtor da classe base
-        self.state = ListaNormal()        
+    def __init__(self,classpth,id,dllpath):
+        self.state = ListaNormal()
+        super(BFTList,self).__init__(classpth,id,dllpath)
+        # chama o construtor da classe base
 
     def execute(self, input):
         #pdb.set_trace()

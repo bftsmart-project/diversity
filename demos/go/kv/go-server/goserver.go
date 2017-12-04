@@ -21,7 +21,23 @@ func (r * replica) ExecuteUnordered(command []byte) []byte {
 }
 
 func (r * replica) GetSnapshot() []byte {
-    return []byte{}
+	est := new(bftbench.Estado)
+	var keys []string
+	for k := range r.state {
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+	var mfe bftbench.MapFieldEntry
+	for _, k := range keys {
+		mfe = new(bftbench.MapFieldEntry)
+		mfe.Key = k
+		mfe.Value = r.state[k]
+		est.Kv = append(est.Kv, mfe)
+	}
+
+    data, err := proto.Marshal(est)
+    checkError(err)
+    return data
 }
 
 func (r * replica) InstallSnapshot(state []byte) {

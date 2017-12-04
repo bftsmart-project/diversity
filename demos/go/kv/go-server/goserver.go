@@ -27,7 +27,7 @@ func (r * replica) GetSnapshot() []byte {
 		keys = append(keys, k)
 	}
 	sort.Strings(keys)
-	var mfe bftbench.MapFieldEntry
+	var mfe *bftbench.MapFieldEntry
 	for _, k := range keys {
 		mfe = new(bftbench.MapFieldEntry)
 		mfe.Key = k

@@ -30,6 +30,9 @@ all:
 
 clean:
 	rm -rf pkg bin build;
+	cd src/bftsmart; rm -rf build;
+	cd src/bftsmartserver; rm -rf build;
+	cd src/bftsmartclient; rm -rf build;
 
 
 

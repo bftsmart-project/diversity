@@ -48,7 +48,7 @@ build/mark-protoc : build/mark-proto
 	touch build/mark-protoc
 
 clean :
-#	cd protobuf-2.6.1; make clean
+	cd protobuf-2.6.1; make clean
 	cd protobuf-c; make clean
 	cd protobuf-go; make clean
 	rm -rf build

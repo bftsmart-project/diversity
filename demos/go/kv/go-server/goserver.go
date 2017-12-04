@@ -31,7 +31,8 @@ func (r * replica) GetSnapshot() []byte {
 	for _, k := range keys {
 		mfe = new(bftbench.MapFieldEntry)
 		mfe.Key = k
-		mfe.Value = r.state[k]
+		valr := r.state[k]
+		mfe.Value = &valr
 		est.Kv = append(est.Kv, mfe)
 	}
 

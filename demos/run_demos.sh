@@ -47,8 +47,10 @@ xterm -T "SERVER 2 - $SERVER2" -e ./demos/$SERVER2/run_"$DEMO"_server.sh 2 &
 sleep 2
 xterm -T "SERVER 3 - $SERVER3" -e ./demos/$SERVER3/run_"$DEMO"_server.sh 3 &
 sleep 6
-./demos/$CLIENT/run_"$DEMO"_client.sh 7001
+xterm -T "CLIENT" -e ./demos/$CLIENT/run_"$DEMO"_client.sh 7001 &
 
+echo "Ctrl-C para finalizar"
+read
 echo "Finished script execution successfully."
 exit 0
 

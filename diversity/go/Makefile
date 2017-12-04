@@ -29,7 +29,7 @@ all:
 .PHONY: clean
 
 clean:
-	rm -rf pkg/* bin/* build;
+	rm -rf pkg bin build;
 
 
 

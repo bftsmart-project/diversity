@@ -105,6 +105,7 @@ public class KVServer extends DefaultSingleRecoverable {
 					for (int i = 0; i < chaves.size(); i++) {
 						reqst.addListResponse(chaves.get(i));
 					}
+					reqst.setBoolResponse(true);
 					break;
                 default:
                     break;

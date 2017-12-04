@@ -99,9 +99,9 @@ int replica::getSnapshot(BYTE ** mem) {
     for ( auto it = state.begin(); it != state.end(); ++it )
     {
 		MapFieldEntry m;
-		m.set_key( t->first);
+		m.set_key(it->first);
 		m.set_value(it->second);
-        est.add_kv(m);
+        est.add_kv(&m);
     }
 
     unsigned int tamanho = est.ByteSize();

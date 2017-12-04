@@ -39,7 +39,7 @@ int execute(BFT_BYTE cmd[], int siz, BFT_BYTE ** mem) {
     
     switch (msg->action)
     {
-        case BFTBENCH__REQUEST__REQUEST_TYPE__ADD:
+        case BFTBENCH__REQUEST__REQUEST_TYPE__PUT:
             HASH_FIND(hh, hashset, &(msg->key), strlen(msg->key), s);
             if (s != NULL) {
                 free(s->value);
@@ -51,7 +51,6 @@ int execute(BFT_BYTE cmd[], int siz, BFT_BYTE ** mem) {
                 HASH_ADD_KEYPTR_INORDER(hh, hashset, s->key, strlen(s->key), s, key_order);            
             }     
             
-            rsp.has_boolresponse = 1;
             rsp.boolresponse = 1;
             break;
         case BFTBENCH__REQUEST__REQUEST_TYPE__DELETE:
@@ -61,22 +60,17 @@ int execute(BFT_BYTE cmd[], int siz, BFT_BYTE ** mem) {
                 free(s->value);
                 free(s->key);
                 free(s);
-                rsp.has_boolresponse = 1;
                 rsp.boolresponse = 1;
             } else {
-                rsp.has_boolresponse = 1;
                 rsp.boolresponse = 0;    
             }                           
             break;
         case BFTBENCH__REQUEST__REQUEST_TYPE__GET:
             HASH_FIND(hh, hashset, &(msg->key), strlen(msg->key), s);
             if (s != NULL) {
-                rsp.has_stringresponse = 1;
                 rsp.stringresponse = s->value;
-                rsp.has_boolresponse = 1;
                 rsp.boolresponse = 1;
             } else {
-                rsp.has_boolresponse = 1;
                 rsp.boolresponse = 0;    
             }                           
             break;
@@ -87,7 +81,6 @@ int execute(BFT_BYTE cmd[], int siz, BFT_BYTE ** mem) {
             for(s=hashset; s != NULL; s=s->hh.next) {
                 rsp.listresponse[i++] = s->key; 
             }    
-            rsp.has_boolresponse = 1;
             rsp.boolresponse = 1;
             break;
         default:

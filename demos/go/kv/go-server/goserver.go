@@ -52,7 +52,7 @@ func (r * replica) execute(command []byte) []byte {
 	    key := req.GetKey()
         if r.state[key] != "" {
             res = true
-			rsp.StringResponse = state[key]
+			rsp.StringResponse = r.state[key]
         } else {
             res = false;
         }
@@ -62,9 +62,9 @@ func (r * replica) execute(command []byte) []byte {
         return data
 	} else if req.GetAction() == bftbench.Request_DELETE {
 	    key := req.GetKey()
-        if r.statestate[key] != "" {
+        if r.state[key] != "" {
             res = true
-			delete(state, key)
+			delete(r.state, key)
         } else {
             res = false
         }
@@ -74,7 +74,7 @@ func (r * replica) execute(command []byte) []byte {
         return data
 	} else { // LIST
 		var keys []string
-		for k := range r.statestate {
+		for k := range r.state {
 			keys = append(keys, k)
 		}
 		sort.Strings(keys)

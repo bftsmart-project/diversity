@@ -25,7 +25,14 @@ func (r * replica) GetSnapshot() []byte {
 }
 
 func (r * replica) InstallSnapshot(state []byte) {
-    
+	est := new(bftbench.Estado)
+	err := proto.Unmarshal(state, est)
+	checkError(err)
+	
+	r.state = make(map[string]string)
+	for _, mfe := range est.Kv {
+		r.state[*(mfe.Key)] = *(mfe.Value)
+	}
 }
 
 func (r * replica) execute(command []byte) []byte {
@@ -33,7 +40,6 @@ func (r * replica) execute(command []byte) []byte {
 	err := proto.Unmarshal(command, req)
 	checkError(err)
 	var res bool;
-	var achou bool;
 	rsp := new(bftbench.Response) 
 
 	if req.GetAction() == bftbench.Request_PUT {
@@ -52,7 +58,8 @@ func (r * replica) execute(command []byte) []byte {
 	    key := req.GetKey()
         if r.state[key] != "" {
             res = true
-			rsp.StringResponse = r.state[key]
+	    valr := r.state[key]
+	    rsp.StringResponse = &valr
         } else {
             res = false;
         }
@@ -81,7 +88,7 @@ func (r * replica) execute(command []byte) []byte {
 
 		// To perform the opertion you want
 		for _, k := range keys {
-			rsp.ListResponse.append(k);
+			rsp.ListResponse = append(rsp.ListResponse, k)
 		}
 		res = true
         rsp.BoolResponse = &res

@@ -50,7 +50,7 @@ func (r * replica) execute(command []byte) []byte {
         return data
 	} else if req.GetAction() == bftbench.Request_GET {
 	    key := req.GetKey()
-        if r.state[key] != nil {
+        if r.state[key] != "" {
             res = true
 			rsp.StringResponse = state[key]
         } else {
@@ -62,7 +62,7 @@ func (r * replica) execute(command []byte) []byte {
         return data
 	} else if req.GetAction() == bftbench.Request_DELETE {
 	    key := req.GetKey()
-        if r.statestate[key] != nil {
+        if r.statestate[key] != "" {
             res = true
 			delete(state, key)
         } else {

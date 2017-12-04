@@ -119,8 +119,8 @@ void installSnap(BFT_BYTE  stateNovo[], int siz) {
     unsigned int i;
     for ( i = 0; i < msg->n_kv; i++) {
         curr_item = t_hash_new();
-        curr_item->key = copy_str(msg->kv->key);
-        curr_item->value = copy_str(msg->kv->value);
+        curr_item->key = copy_str(msg->kv[i]->key);
+        curr_item->value = copy_str(msg->kv[i]->value);
         HASH_ADD_KEYPTR_INORDER(hh, hashset, curr_item->key, strlen(curr_item->key), curr_item, key_order);            
     }
     bftbench__estado__free_unpacked(msg, NULL);

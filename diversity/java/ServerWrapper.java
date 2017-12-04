@@ -16,7 +16,7 @@ import bftsmart.tom.util.Storage;
  */
 public class ServerWrapper extends DefaultSingleRecoverable {
     private Storage executeOrderedTime = null;
-    
+    public ServiceReplica replicaObject;
     private native byte[] executeOrderedNative(byte[] commando);
 
     private native byte[] executeUnorderedNative(byte[] commando);
@@ -28,9 +28,9 @@ public class ServerWrapper extends DefaultSingleRecoverable {
     private int count;
     public ServerWrapper(int id) {
 try {
-        new ServiceReplica(id, this, this);
-        executeOrderedTime = new Storage(interval);
+		executeOrderedTime = new Storage(interval);        
         count = 0;
+		replicaObject = new ServiceReplica(id, this, this);       
 } catch (Exception ex) {
 System.out.println(ex.getMessage());
 throw ex;

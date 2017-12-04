@@ -119,8 +119,8 @@ void installSnap(BFT_BYTE  stateNovo[], int siz) {
     unsigned int i;
     for ( i = 0; i < msg->n_kv; i++) {
         curr_item = t_hash_new();
-        curr_item->key = copy_str(msg->kv.key);
-        curr_item->value = copy_str(msg->kv.value);
+        curr_item->key = copy_str(msg->kv->key);
+        curr_item->value = copy_str(msg->kv->value);
         HASH_ADD_KEYPTR_INORDER(hh, hashset, curr_item->key, strlen(curr_item->key), curr_item, key_order);            
     }
     bftbench__estado__free_unpacked(msg, NULL);
@@ -136,16 +136,19 @@ int getSnap(BFT_BYTE ** mem) {
     t_hash * s;
     int x = HASH_COUNT(hashset);
     est.n_kv = x;
-    est.kv = (Bftbench__MapFieldEntry*) malloc(sizeof(Bftbench__MapFieldEntry) * x);
+	Bftbench__MapFieldEntry* kv_storage = (Bftbench__MapFieldEntry*) malloc(sizeof(Bftbench__MapFieldEntry) * x);
+    est.kv = (Bftbench__MapFieldEntry**) malloc(sizeof(Bftbench__MapFieldEntry*) * x);
     int i = 0;
     for(s=hashset; s != NULL; s=s->hh.next) {        
-        est.kv[i].key = s->key; 
-        est.kv[i].value = s->value;
+		kv_storage[i].key = s->key;
+		kv_storage[i].value = s->value;
+		est.kv[i] = &(kv_storage[i]);
+		i++;
     }         
     unsigned int tamanho = bftbench__estado__get_packed_size(&est);
     BFT_BYTE * out = (BFT_BYTE*) malloc (tamanho);
     bftbench__estado__pack(&est, (uint8_t*)out);
-    free(est.kv);
+    free(est.kv); free(kv_storage);
     (*mem) = out;
     return tamanho;
 }

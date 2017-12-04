@@ -42,7 +42,7 @@ func (r * replica) execute(command []byte) []byte {
 		fmt.Println(val)
         res = true
 		
-		state[key] = val
+		r.state[key] = val
 		
         rsp.BoolResponse = &res
         data, err := proto.Marshal(rsp)
@@ -50,7 +50,7 @@ func (r * replica) execute(command []byte) []byte {
         return data
 	} else if req.GetAction() == bftbench.Request_GET {
 	    key := req.GetKey()
-        if state[key] != nil {
+        if r.state[key] != nil {
             res = true
 			rsp.StringResponse = state[key]
         } else {
@@ -62,7 +62,7 @@ func (r * replica) execute(command []byte) []byte {
         return data
 	} else if req.GetAction() == bftbench.Request_DELETE {
 	    key := req.GetKey()
-        if state[key] != nil {
+        if r.statestate[key] != nil {
             res = true
 			delete(state, key)
         } else {
@@ -74,7 +74,7 @@ func (r * replica) execute(command []byte) []byte {
         return data
 	} else { // LIST
 		var keys []string
-		for k := range state {
+		for k := range r.statestate {
 			keys = append(keys, k)
 		}
 		sort.Strings(keys)

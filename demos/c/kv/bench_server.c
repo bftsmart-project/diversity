@@ -40,7 +40,7 @@ int execute(BFT_BYTE cmd[], int siz, BFT_BYTE ** mem) {
     switch (msg->action)
     {
         case BFTBENCH__REQUEST__REQUEST_TYPE__PUT:
-            HASH_FIND(hh, hashset, &(msg->key), strlen(msg->key), s);
+            HASH_FIND_STR(hashset, msg->key, s);
             if (s != NULL) {
                 free(s->value);
                 s->value = copy_str(msg->value);
@@ -54,7 +54,7 @@ int execute(BFT_BYTE cmd[], int siz, BFT_BYTE ** mem) {
             rsp.boolresponse = 1;
             break;
         case BFTBENCH__REQUEST__REQUEST_TYPE__DELETE:
-            HASH_FIND(hh, hashset, &(msg->key), strlen(msg->key), s);
+            HASH_FIND_STR(hashset, msg->key, s);
             if (s != NULL) {
                 HASH_DELETE(hh, hashset, s);
                 free(s->value);
@@ -66,7 +66,7 @@ int execute(BFT_BYTE cmd[], int siz, BFT_BYTE ** mem) {
             }                           
             break;
         case BFTBENCH__REQUEST__REQUEST_TYPE__GET:
-            HASH_FIND(hh, hashset, &(msg->key), strlen(msg->key), s);
+            HASH_FIND_STR(hashset, msg->key, s);
             if (s != NULL) {
                 rsp.stringresponse = s->value;
                 rsp.boolresponse = 1;

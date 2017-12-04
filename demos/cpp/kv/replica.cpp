@@ -9,28 +9,6 @@
 
 std::map<std::string, std::string> state;
 
-bool buscarlista(int val)
-{
-    int i = 0;
-    for ( auto it = state.begin(); it != state.end(); ++it )
-    {
-        if ( (*it) == val ) return true;
-        i++;
-    }
-    return false;
-}
-
-int elemento_at(int val)
-{
-    int i = 0;
-    for ( auto it = state.begin(); it != state.end(); ++it )
-    {
-        if ( i == val ) return (*it);
-        i++;
-    }
-    return -1;
-}
-
 int execute(BFT_BYTE cmd[], int siz, BFT_BYTE ** mem) {
     using namespace bftbench;
 
@@ -49,7 +27,7 @@ int execute(BFT_BYTE cmd[], int siz, BFT_BYTE ** mem) {
             rsp.set_boolresponse(true);
 			state[rqst.key()] = rqst.value();
             break;
-        case Request::REMOVE:
+        case Request::DELETE:
             rsp.set_boolresponse(false);
 			s = state.find(rqst.key());
             if (s != state.end()) {
@@ -104,9 +82,9 @@ void replica::installSnapshot(BYTE stateNovo[], int siz) {
 
     state.clear();
 
-    for (int i = 0; i < est.lista_size(); i++)
+    for (int i = 0; i < est.kv_size(); i++)
     {
-        state[est.kv(i).key] = est.kv(i).value;
+        state[est.kv(i).key()] = est.kv(i).value();
     }
     
 }
@@ -121,8 +99,8 @@ int replica::getSnapshot(BYTE ** mem) {
     for ( auto it = state.begin(); it != state.end(); ++it )
     {
 		MapFieldEntry m;
-		m.key = it->first;
-		m.value = it->second;
+		m.set_key( t->first);
+		m.set_value(it->second);
         est.add_kv(m);
     }
 

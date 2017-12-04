@@ -1,3 +1,6 @@
 [submodule "bftsmart/library"]
 	path = bftsmart/library
 	url = https://github.com/caioycosta/library.git
+[submodule "libraries/uthash"]
+	path = libraries/uthash
+	url = https://github.com/caioycosta/uthash.git

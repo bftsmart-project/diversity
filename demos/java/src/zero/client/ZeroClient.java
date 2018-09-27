@@ -2,41 +2,111 @@ package bftsmart.diversity.demos.zero;
 
 import bftsmart.tom.ServiceProxy;
 import java.io.*;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 
 
 public class ZeroClient {
+    
+    static class ClientThread extends Thread {
+        int id;
+        int numberOfOps;
+        int requestSize;
+        int interval;
+        ServiceProxy proxy;
+        byte[] request;
+        
+        public ClientThread(int id, int numberOfOps, int requestSize, int interval) {
+            super("Client "+id);
+        
+            this.id = id;
+            this.numberOfOps = numberOfOps;
+            this.requestSize = requestSize;
+            this.interval = interval;
+            this.proxy = new ServiceProxy(id);
+            this.request = new byte[this.requestSize];
+            
+            for (int i = 0; i < requestSize; i++)
+            {
+                this.request[i] = (byte)0xFF;
+            }
+        }
+        
+        @Override
+        public void run() {
+            byte[] reply;
+            int reqId;
+            
+            System.out.println("Executing experiment for " + numberOfOps / 2 + " ops");
+
+            for (int i = 0; i < numberOfOps; i++) {
+                reply = proxy.invokeOrdered(request);
+            }
+            if (interval > 0) {
+                    try {
+                        //sleeps interval ms before sending next request
+                        Thread.sleep(interval);
+                    } catch (InterruptedException ex) {
+                    }
+                }
+            proxy.close();
+        }
+    }
+    
 public static void main(String[] args) throws IOException {
 
 	if (args.length < 2) {
-		System.out.println("Usage: ... ListClient <process id> request_size");
+		System.out.println("Usage: ... ListClient <num. threads> <process id> <number of operations> <request size> <interval> ");
 		System.exit(-1);
-}
+        }
+        
+        int numThreads = Integer.parseInt(args[0]);
+        int initId = Integer.parseInt(args[1]);
 
-int id = Integer.parseInt(args[0]);
-int req_size = Integer.parseInt(args[1]);
+        int numberOfOps = Integer.parseInt(args[2]);
+        int requestSize = Integer.parseInt(args[3]);
+        int interval = Integer.parseInt(args[4]);
+        
+        ClientThread[] clients = new ClientThread[numThreads];
+    
+        
+for(int i=0; i<numThreads; i++) {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException ex) {
+                //Logger.getLogger(ThroughputLatencyClient.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            System.out.println("Launching client " + (initId+i));
+            clients[i] = new ClientThread(initId+i,numberOfOps,requestSize,interval);
+        }
 
-ServiceProxy proxy;
-proxy = new ServiceProxy(id);
-InputStreamReader converter = new InputStreamReader(System.in);
-BufferedReader in = new BufferedReader(converter);
-String lido;
-do {
-byte[] msg = new byte[req_size]; 
-for (int i = 0; i < req_size; i++) 
-{
-    msg[i] = 0xFF;
-}
+        ExecutorService exec = Executors.newFixedThreadPool(clients.length);
+        Collection<Future<?>> tasks = new LinkedList();
+        
+        for (ClientThread c : clients) {
+            tasks.add(exec.submit(c));
+        }
+        
+        // wait for tasks completion
+        for (Future<?> currTask : tasks) {
+            try {
+                currTask.get();
+            } catch (InterruptedException ex) {
+                System.out.println("InterruptedException" + ex.toString());
+            } catch (ExecutionException ex) {
+                System.out.println("ExecutionException" + ex.toString());
+                //Logger.getLogger(ThroughputLatencyClient.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
-byte[] rsp = proxy.invokeOrdered(msg);
-byte[] rsp2 = proxy.invokeUnordered(msg);
-
-System.out.println("digite s para sair o enter para continuar");
-lido = in.readLine();
-} while (lido != "s");
-
-proxy.close();
-
+        }
+    
+        exec.shutdown();
 }
 
 }

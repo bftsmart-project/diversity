@@ -58,30 +58,14 @@ public class ZeroServer extends DefaultSingleRecoverable {
 
     private byte[] execute(byte[] command, MessageContext msgCtx) {
 	System.out.println("executing");
+
+            computeStatistics(msgCtx);
         byte[] resp = new byte[]{};
 	for (int i = 0; i < this.resp_size; i++) {
 		resp[i] = 0xFF;
 	}
 	return resp;
-/*        try {
 
-            computeStatistics(msgCtx);
-            bftbench.VazioOuterClass.Vazio rqst
-                    = bftbench.VazioOuterClass.Vazio.parseFrom(command);
-
-            VazioOuterClass.Vazio.Builder reqst;
-            reqst = VazioOuterClass.Vazio
-                    .newBuilder();
-
-                       // .setAction(RequestOuterClass.Request.RequestType.REMOVE)
-            // .setValue(index)
-            // .build();
-
-            return reqst.build().toByteArray();
-        } catch (InvalidProtocolBufferException ex) {
-            throw new RuntimeException(ex);
-        }
-*/
     }
 
     @Override

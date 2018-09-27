@@ -37,8 +37,10 @@ public class ZeroServer extends DefaultSingleRecoverable {
     private Storage proposeLatency = null;
     private Storage writeLatency = null;
     private Storage acceptLatency = null;
+    private int resp_size;
 
-    public ZeroServer(int id, int intervalo) {
+    public ZeroServer(int id, int intervalo, int resp_size) {
+	this.resp_size = resp_size;
         this.interval = intervalo;
          if (interval > 0) {
         totalLatency = new Storage(interval);
@@ -56,8 +58,11 @@ public class ZeroServer extends DefaultSingleRecoverable {
 
     private byte[] execute(byte[] command, MessageContext msgCtx) {
 	System.out.println("executing");
-
-	return command;
+        byte[] resp = new byte[]{};
+	for (int i = 0; i < this.resp_size; i++) {
+		resp[i] = 0xFF;
+	}
+	return resp;
 /*        try {
 
             computeStatistics(msgCtx);

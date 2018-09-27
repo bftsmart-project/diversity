@@ -21,14 +21,14 @@ public class ServerLaunch {
     public static void main(String[] args){
 
 
-          if(args.length < 2) {
-            System.out.println("Use: java Serverlaunch <processId>");
+          if(args.length < 3) {
+            System.out.println("Use: java Serverlaunch <processId> resp_size");
             System.exit(-1);
         }
           for (int i = 0; i < args.length; i++) {
               System.out.println("-" + args[i] + "-");
           }
-         new ZeroServer(Integer.parseInt(args[0]), Integer.parseInt(args[1]));
+         new ZeroServer(Integer.parseInt(args[0]), Integer.parseInt(args[1]), Integer.parseInt(args[2]));
 
     }
 }

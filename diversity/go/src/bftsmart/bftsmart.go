@@ -68,7 +68,7 @@ func CreateServiceProxy(id int) int {
 }                                                 
                                                   
 func InvokeOrdered(command []byte) []byte {       
-        output := (*C.BFT_BYTE)(bftsmartallocate(100));        
+        output := (*C.BFT_BYTE)(bftsmartallocate(len(command) + 100));        
         c_command := (*C.BFT_BYTE)(bftsmartallocate(uint(len(command))))
         copy( (*[1<<30]byte)(unsafe.Pointer(c_command))[0:len(command)], command);
         
@@ -78,7 +78,7 @@ func InvokeOrdered(command []byte) []byte {
 }                                                 
                                                   
 func InvokeUnordered(command []byte) []byte {     
-        output := (*C.BFT_BYTE)(bftsmartallocate(100));
+        output := (*C.BFT_BYTE)(bftsmartallocate(len(command) + 100));
         c_command := (*C.BFT_BYTE)(bftsmartallocate(uint(len(command))))
         copy( (*[1<<30]byte)(unsafe.Pointer(c_command))[0:len(command)], command);
 

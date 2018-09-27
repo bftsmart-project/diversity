@@ -11,7 +11,7 @@ class BFTSMaRtClient(BFTJVM):
     
     def invokeOrdered(self, strobj):        # invoca o ordered, recebendo uma string binaria
         p = create_string_buffer(strobj, len(strobj))        # e retornando uma string binaria tambem.
-        r = create_string_buffer(100)
+        r = create_string_buffer(len(strobj) + 100)  # TEMPORARIO. assume tamanho da resposta será igual ao tamanho da requiscao + 100
         resultado = BFTJVM.libbft.invokeOrdered(p, len(p.raw), r)
 
         #apenas para debug
@@ -25,7 +25,7 @@ class BFTSMaRtClient(BFTJVM):
 
     def invokeUnordered(self, strobj):              # invoca o unordered
         p = create_string_buffer(strobj, len(strobj))          
-        r = create_string_buffer(100) 
+        r = create_string_buffer(len(strobj) + 100)  # TEMPORARIO. assume tamanho da resposta será igual ao tamanho da requiscao + 100
         resultado = BFTJVM.libbft.invokeUnordered(p, len(p.raw), r) 
         x = create_string_buffer(r.raw[:resultado], resultado) 
         return x.raw

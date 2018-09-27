@@ -57,7 +57,7 @@ public class ZeroServer extends DefaultSingleRecoverable {
     private byte[] execute(byte[] command, MessageContext msgCtx) {
 	System.out.println("executing");
 
-	return new byte[]{};
+	return command;
 /*        try {
 
             computeStatistics(msgCtx);

@@ -31,12 +31,12 @@ server:
 # FOR GO VERSION <= 1.8, uncommment lines with "dummy.c" and comment lines with "cp".
 ##
 
-	gcc -o build/wrapper.o -c dummy.c
-	gcc -o build/bftsmart-c-client.o -c dummy.c
-	gcc -o build/bftsmart-c-server.o -c dummy.c
-#	cp -v ../../../diversity/c/build/wrapper.o build/
-#	cp -v ../../../diversity/c/build/bftsmart-c-client.o build/
-#	cp -v ../../../diversity/c/build/bftsmart-c-server.o build/
+#	gcc -o build/wrapper.o -c dummy.c
+#	gcc -o build/bftsmart-c-client.o -c dummy.c
+#	gcc -o build/bftsmart-c-server.o -c dummy.c
+	cp -v ../../../diversity/c/build/wrapper.o build/
+	cp -v ../../../diversity/c/build/bftsmart-c-client.o build/
+	cp -v ../../../diversity/c/build/bftsmart-c-server.o build/
 	go build -o build/go-server.exe ./go-server
 
 clean:

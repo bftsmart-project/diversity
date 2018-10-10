@@ -1,5 +1,5 @@
 PASTAJAVA := $(shell ../../scripts/findjava.sh)
-INCL=-I../c -I$(PASTAJAVA)/include/ -I$(PASTAJAVA)/include/linux
+INCL=-I../c/headers -I$(PASTAJAVA)/include/ -I$(PASTAJAVA)/include/linux
 LIBS=-L $(PASTAJAVA)/jre/lib/amd64/server
 CCFLAGS=-g -Wextra -Wall 
 CPFLAGS=-g -Wextra -Wall -fpermissive --std=c++0x

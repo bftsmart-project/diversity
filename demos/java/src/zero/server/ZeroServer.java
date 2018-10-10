@@ -62,7 +62,7 @@ public class ZeroServer extends DefaultSingleRecoverable {
             computeStatistics(msgCtx);
         byte[] resp = new byte[]{};
 	for (int i = 0; i < this.resp_size; i++) {
-		resp[i] = 0xFF;
+		resp[i] = (byte) 0xFF;
 	}
 	return resp;
 

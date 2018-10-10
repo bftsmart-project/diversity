@@ -1,5 +1,5 @@
 PASTAJAVA := $(shell ../../../scripts/findjava.sh)
-INCL=-I../../../diversity/c -I$(PASTAJAVA)/include/ -I$(PASTAJAVA)/include/linux -I../../protobuf/kv/build
+INCL=-I../../../diversity/c/headers -I$(PASTAJAVA)/include/ -I$(PASTAJAVA)/include/linux -I../../protobuf/kv/build
 LIBS=-L $(PASTAJAVA)/jre/lib/amd64/server
 INCL += `PKG_CONFIG_PATH=../../../protobuf/build/lib/pkgconfig pkg-config --cflags --libs libprotobuf-c protobuf | sed 's/-lprotobuf-c//' | sed 's/-lprotobuf//'`
 

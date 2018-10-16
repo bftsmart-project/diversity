@@ -1,4 +1,4 @@
-[ $# -eq 0 ] && { echo "Usage: $0 id_replica"; exit 1; }
+[ $# -eq 0 ] && { echo "Usage: $0 n_threads id_replica n_ops req_siz interval"; exit 1; }
 
 BASEFOLDER=`pwd`/`dirname $0`
 
@@ -9,5 +9,5 @@ set -e
 
 java -cp "$BASEFOLDER/../../bftsmart/library/lib/*:"\
 "$BASEFOLDER/../../bftsmart/bin/BFT-SMaRt.jar:"\
-"$BASEFOLDER/bin/demo-java.jar" bftsmart.diversity.demos.zero.ZeroClient $1
+"$BASEFOLDER/bin/demo-java.jar" bftsmart.diversity.demos.zero.ZeroClient $1 $2 $3 $4 $5
 

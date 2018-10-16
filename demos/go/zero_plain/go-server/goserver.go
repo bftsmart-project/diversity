@@ -39,7 +39,9 @@ func main() {
 	checkError(err)
 	s, err := strconv.Atoi(os.Args[3])
 	checkError(err)
-	r := replica{ state: make(map[string]string), resp_size: s }
+        inte, err := strconv.Atoi(os.Args[4])
+        checkError(err)
+	r := replica{ state: make(map[string]string), resp_size: s, interval: inte }
 	bftsmartserver.StartServiceReplica(i, os.Args[2], &r);
 	bftsmartserver.FinalizarJvm()
 	fmt.Println("main finalizou")

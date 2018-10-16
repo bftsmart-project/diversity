@@ -47,20 +47,13 @@ public class ZeroClient {
             for (int i = 0; i < numberOfOps; i++) {
                 reply = proxy.invokeOrdered(request);
             }
-            if (interval > 0) {
-                    try {
-                        //sleeps interval ms before sending next request
-                        Thread.sleep(interval);
-                    } catch (InterruptedException ex) {
-                    }
-                }
             proxy.close();
         }
     }
     
 public static void main(String[] args) throws IOException {
 
-	if (args.length < 2) {
+	if (args.length < 5) {
 		System.out.println("Usage: ... ListClient <num. threads> <process id> <number of operations> <request size> <interval> ");
 		System.exit(-1);
         }

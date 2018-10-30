@@ -1,5 +1,5 @@
 #!/bin/bash
-ssh -o "StrictHostKeyChecking no" localhost /bin/bash & << EOF | sed 's/^/SSH1:/'
+ssh -o "StrictHostKeyChecking no" localhost /bin/bash << EOF | sed 's/^/SSH1:/' &
 echo Teste
 echo Teste2 
 echo Teste3

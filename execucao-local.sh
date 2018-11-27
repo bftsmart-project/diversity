@@ -6,6 +6,7 @@ echo Teste
 >&2 echo Teste2ERR 
 echo Teste3
 sleep 5
+date
 echo quitting
 EOF
 JOB1=$! 
@@ -16,6 +17,7 @@ echo Teste
 >&2 echo Teste2ERR 
 echo Teste3
 sleep 6 
+date
 echo quitting
 EOF
 JOB2=$! 
@@ -26,6 +28,7 @@ echo Teste
 >&2 echo Teste2ERR 
 echo Teste3
 sleep 7 
+date
 echo quitting
 EOF
 JOB3=$! 
@@ -36,6 +39,7 @@ echo Teste
 >&2 echo Teste2ERR 
 echo Teste3
 sleep 8 
+date
 echo quitting
 EOF
 JOB4=$! 
@@ -46,6 +50,7 @@ echo Teste
 >&2 echo Teste2ERR 
 echo Teste3
 sleep 9 
+date
 echo quitting
 EOF
 JOB5=$! 

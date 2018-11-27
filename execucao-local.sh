@@ -5,6 +5,7 @@ ssh -o "StrictHostKeyChecking no" localhost /bin/bash << EOF 2>&1 | sed 's/^/SSH
 echo Teste
 >&2 echo Teste2ERR 
 echo Teste3
+date
 sleep 5
 date
 echo quitting
@@ -16,6 +17,7 @@ ssh -o "StrictHostKeyChecking no" localhost /bin/bash << EOF 2>&1 | sed 's/^/SSH
 echo Teste
 >&2 echo Teste2ERR 
 echo Teste3
+date
 sleep 6 
 date
 echo quitting
@@ -27,6 +29,7 @@ ssh -o "StrictHostKeyChecking no" localhost /bin/bash << EOF 2>&1 | sed 's/^/SSH
 echo Teste
 >&2 echo Teste2ERR 
 echo Teste3
+date
 sleep 7 
 date
 echo quitting
@@ -38,6 +41,7 @@ ssh -o "StrictHostKeyChecking no" localhost /bin/bash << EOF 2>&1 | sed 's/^/SSH
 echo Teste
 >&2 echo Teste2ERR 
 echo Teste3
+date
 sleep 8 
 date
 echo quitting
@@ -49,6 +53,7 @@ ssh -o "StrictHostKeyChecking no" localhost /bin/bash << EOF 2>&1 | sed 's/^/SSH
 echo Teste
 >&2 echo Teste2ERR 
 echo Teste3
+date
 sleep 9 
 date
 echo quitting
@@ -64,4 +69,5 @@ kill $JOB2
 kill $JOB3
 kill $JOB4
 kill $JOB5
+echo "Finalizado."
 

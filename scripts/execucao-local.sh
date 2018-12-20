@@ -2,11 +2,10 @@
 set -b
 
 ssh -o "StrictHostKeyChecking no" localhost /bin/bash << EOF 2>&1 | sed 's/^/SSH1:/' &
-echo Teste
->&2 echo Teste2ERR 
-echo Teste3
-sleep 10
-echo quitting
+set -e
+cd worker
+cd compilar-projeto
+cd build
 EOF
 JOB1=$! 
 

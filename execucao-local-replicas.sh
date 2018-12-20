@@ -2,13 +2,8 @@
 set -b # reporta status de jobs imediatamente ao inves de so no fim do script
 
 ssh -o "StrictHostKeyChecking no" localhost /bin/bash << EOF 2>&1 | sed 's/^/SSH1:/' &
-echo Teste
->&2 echo Teste2ERR 
-echo Teste3
-date
-sleep 5
-date
-echo quitting
+cd worker/compilar-projeto/build
+./demos/go/run_zero-plain_server.sh 
 EOF
 JOB1=$! 
 

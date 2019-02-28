@@ -4,11 +4,11 @@ import "bftsmartserver"
 import "os"
 import "fmt"
 import "strconv"
-import "sort"
 
 type replica struct {
     state map[string]string
     resp_size int
+    interval int
 }
 
 func (r * replica) ExecuteOrdered(command []byte) []byte {
@@ -28,7 +28,7 @@ func (r * replica) InstallSnapshot(state []byte) {
 
 func (r * replica) execute(command []byte) []byte {
 	var resp []byte = make([]byte, r.resp_size);
-	for i, _ : range resp {
+	for i, _ := range resp {
 		resp[i] = 0xFF;
         }
 	return resp;

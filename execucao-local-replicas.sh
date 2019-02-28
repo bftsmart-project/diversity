@@ -7,7 +7,7 @@ cd worker/compilar-projeto/build
 EOF
 JOB1=$! 
 
-sleep 60
+sleep 10
 
 ssh -o "StrictHostKeyChecking no" localhost /bin/bash << EOF 2>&1 | sed 's/^/SSH2:/' &
 cd worker/compilar-projeto/build
@@ -15,7 +15,7 @@ cd worker/compilar-projeto/build
 EOF
 JOB2=$! 
 
-sleep 60
+sleep 10
 
 ssh -o "StrictHostKeyChecking no" localhost /bin/bash << EOF 2>&1 | sed 's/^/SSH3:/' &
 cd worker/compilar-projeto/build
@@ -23,7 +23,7 @@ cd worker/compilar-projeto/build
 EOF
 JOB3=$! 
 
-sleep 60
+sleep 10
 
 ssh -o "StrictHostKeyChecking no" localhost /bin/bash << EOF 2>&1 | sed 's/^/SSH4:/' &
 cd worker/compilar-projeto/build
@@ -31,17 +31,17 @@ cd worker/compilar-projeto/build
 EOF
 JOB4=$! 
 
-sleep 60
+sleep 20
 
 ssh -o "StrictHostKeyChecking no" localhost /bin/bash << EOF 2>&1 | sed 's/^/SSH5:/' &
 cd worker/compilar-projeto/build
-./demos/java/run_zero-plain_client.sh 2 7001 100 $1 90
+./demos/java/run_zero-plain_client.sh 5 7001 50 $1 1000
 EOF
 JOB5=$! 
 
 #top -b -d 7 &
 echo Sleeping.
-sleep 120 
+sleep 90 
 #kill %1
 kill $JOB1
 kill $JOB2

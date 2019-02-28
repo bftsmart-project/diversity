@@ -1,5 +1,4 @@
 #!/bin/bash
-
 [ $# -eq 0 ] && { echo "Usage: $0 config_folder id_replica"; exit 1; }
 
 
@@ -22,7 +21,11 @@ echo 'Library path' $LD_LIBRARY_PATH
 echo
 echo
 
-$BASEFOLDER/list2/build/go-client.exe $1 "-Djava.class.path=$BASEFOLDER/../../bftsmart/bin/BFT-SMaRt.jar:"\
+# arg 1 : id da replica
+# arg 2 : classpath
+# arg 3 : size
+# arg 4 : interval
+$BASEFOLDER/zero_plain/build/go-server.exe $1 "-Djava.class.path=$BASEFOLDER/../../bftsmart/bin/BFT-SMaRt.jar:"\
 "$BASEFOLDER/$LIBCLSPTH/slf4j-api-1.5.8.jar:"\
 "$BASEFOLDER/$LIBCLSPTH/slf4j-jdk14-1.5.8.jar:"\
 "$BASEFOLDER/$LIBCLSPTH/netty-all-4.1.9.Final.jar:"\

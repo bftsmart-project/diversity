@@ -3,61 +3,45 @@ set -b # reporta status de jobs imediatamente ao inves de so no fim do script
 
 ssh -o "StrictHostKeyChecking no" localhost /bin/bash << EOF 2>&1 | sed 's/^/SSH1:/' &
 cd worker/compilar-projeto/build
-./demos/go/run_zero-plain_server.sh 
+./demos/go/run_zero-plain_server.sh 0 $1 1000 
 EOF
 JOB1=$! 
 
+sleep 60
 
 ssh -o "StrictHostKeyChecking no" localhost /bin/bash << EOF 2>&1 | sed 's/^/SSH2:/' &
-echo Teste
->&2 echo Teste2ERR 
-echo Teste3
-date
-sleep 6 
-date
-echo quitting
+cd worker/compilar-projeto/build
+./demos/go/run_zero-plain_server.sh 1 $1 1000
 EOF
 JOB2=$! 
 
+sleep 60
 
 ssh -o "StrictHostKeyChecking no" localhost /bin/bash << EOF 2>&1 | sed 's/^/SSH3:/' &
-echo Teste
->&2 echo Teste2ERR 
-echo Teste3
-date
-sleep 7 
-date
-echo quitting
+cd worker/compilar-projeto/build
+./demos/go/run_zero-plain_server.sh 2 $1 1000
 EOF
 JOB3=$! 
 
+sleep 60
 
 ssh -o "StrictHostKeyChecking no" localhost /bin/bash << EOF 2>&1 | sed 's/^/SSH4:/' &
-echo Teste
->&2 echo Teste2ERR 
-echo Teste3
-date
-sleep 8 
-date
-echo quitting
+cd worker/compilar-projeto/build
+./demos/go/run_zero-plain_server.sh 3 $1 1000
 EOF
 JOB4=$! 
 
+sleep 60
 
 ssh -o "StrictHostKeyChecking no" localhost /bin/bash << EOF 2>&1 | sed 's/^/SSH5:/' &
-echo Teste
->&2 echo Teste2ERR 
-echo Teste3
-date
-sleep 9 
-date
-echo quitting
+cd worker/compilar-projeto/build
+./demos/java/run_zero-plain_client.sh 2 7001 100 $1 90
 EOF
 JOB5=$! 
 
 #top -b -d 7 &
 echo Sleeping.
-sleep 15 
+sleep 120 
 #kill %1
 kill $JOB1
 kill $JOB2

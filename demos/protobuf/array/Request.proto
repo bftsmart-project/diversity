@@ -1,0 +1,6 @@
+package bftbench;
+
+message Request
+{
+	required bytes Data = 1;
+}

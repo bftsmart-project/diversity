@@ -1,0 +1,6 @@
+package bftbench;
+
+message Response
+{
+	required bytes Data = 1;
+}

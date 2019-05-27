@@ -55,7 +55,11 @@ public class ArrayClient {
 	        reqst = RequestOuterClass.Request.newBuilder();
                 reqst.setData(ByteString.copyFrom(request));			
                 reply = proxy.invokeOrdered(reqst.build().toByteArray());
+		try {
 		bftbench.ResponseOuterClass.Response.parseFrom(reply);
+		} catch (InvalidProtocolBufferException ex) {
+			throw new RuntimeException(ex);
+		}
             }
             proxy.close();
         }

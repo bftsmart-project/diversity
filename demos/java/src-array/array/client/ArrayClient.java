@@ -6,6 +6,7 @@ import bftbench.EstadoOuterClass.Estado;
 import bftbench.RequestOuterClass;
 import bftbench.ResponseOuterClass;
 import com.google.protobuf.InvalidProtocolBufferException;
+import com.google.protobuf.ByteString; 
 import java.io.*;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -52,7 +53,7 @@ public class ArrayClient {
             for (int i = 0; i < numberOfOps; i++) {
 		RequestOuterClass.Request.Builder reqst;
 	        reqst = RequestOuterClass.Request.newBuilder();
-                reqst.setData(request);			
+                reqst.setData(ByteString.copyFrom(request));			
                 reply = proxy.invokeOrdered(reqst.build().toByteArray());
 		bftbench.ResponseOuterClass.Response.parseFrom(reply);
             }

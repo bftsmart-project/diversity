@@ -8,7 +8,7 @@
 PASTAJAVA := $(shell ../../../scripts/findjava.sh)
 INCL=-I$(shell pwd)/../../../diversity/c/headers -I$(PASTAJAVA)/include/ -I$(PASTAJAVA)/include/linux
 LIBS=-L $(PASTAJAVA)/jre/lib/amd64/server
-GOPATH = $(shell pwd)/../../protobuf/array/build/go:$(shell pwd)/../../../protobuf/protobuf-go:$(shell pwd)/../../../diversity/go:$(shell pwd)
+GOPATH=$(shell pwd)/../../protobuf/array/build/go:$(shell pwd)/../../../protobuf/protobuf-go:$(shell pwd)/../../../diversity/go:$(shell pwd)
 CGO_CFLAGS=-g $(INCL)
 CGO_LDFLAGS=$(LIBS) -lstdc++ -ljvm
 

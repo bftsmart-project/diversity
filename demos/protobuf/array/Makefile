@@ -1,3 +1,7 @@
+GOPATH = $(shell pwd)/build/go:$(shell pwd)/../../../protobuf/protobuf-go
+
+export GOPATH
+
 all :
 	-mkdir build
 	../../../protobuf/build/bin/protoc-c --c_out=./build *.proto

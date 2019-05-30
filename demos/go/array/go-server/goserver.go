@@ -23,13 +23,13 @@ func (r * replica) ExecuteUnordered(command []byte) []byte {
 func (r * replica) GetSnapshot() []byte {
     est := new(bftbench.Estado)
     data, err := proto.Marshal(est)
-    chekError(err)
+    checkError(err)
     return data;
 }
 
 func (r * replica) InstallSnapshot(state []byte) {
     est := new(bftbench.Estado)
-    err := proto.Unmarshasl(state, est)
+    err := proto.Unmarshal(state, est)
     checkError(err)
 }
 

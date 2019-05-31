@@ -6,10 +6,14 @@ import "fmt"
 import "bftbench"
 import "github.com/golang/protobuf/proto"
 import "strconv"
+import "time"
 
 type replica struct {
     resp_size int
     interval int
+    // Instrumentation for throughput calculation
+    rqst_count int
+    start_time Time
 }
 
 func (r * replica) ExecuteOrdered(command []byte) []byte {
@@ -34,6 +38,9 @@ func (r * replica) InstallSnapshot(state []byte) {
 }
 
 func (r * replica) execute(command []byte) []byte {
+	if start_time.IsZero() {
+	   start_time = time.Now() 
+        }
 	req := new(bftbench.Request)
 	err := proto.Unmarshal(command, req)
 	checkError(err)
@@ -48,6 +55,14 @@ func (r * replica) execute(command []byte) []byte {
 
 	data, err := proto.Marshal(rsp)
 	checkError(err)
+	// Instrumentation for throughput calculation
+        r.rqst_count++;
+        if r.rqst_count >= r.interval {
+               since := time.Since(start_time);
+	       fmt.Println("Throughput: %f / s", r.rqst_count / since.Seconds())
+               r.rqst_count = 0; 
+	       r.start_time = new(Time);
+	}
 	return data;
 }
 

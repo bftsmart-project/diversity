@@ -5,6 +5,7 @@
 #include <Estado.pb.h>
 #include <Request.pb.h>
 #include <Response.pb.h>
+#include <time.h>
 
 
 #define NAO_UTILIZADA(x) (void)(x)
@@ -12,8 +13,17 @@
 #define DEBUG 0
 
 int respsize;
+int interval;
+struct timespec start_time;
+int stt_time_set;
+int rqst_count;
+
 
 int execute(BFT_BYTE cmd[], int siz, BFT_BYTE ** mem) {
+    if (!stt_time_set) {
+	    clock_gettime(CLOCK_MONOTONIC, &start_time);
+	    stt_time_set = 1;
+    }	    
     using namespace bftbench;
 
     Request rqst;
@@ -23,6 +33,7 @@ int execute(BFT_BYTE cmd[], int siz, BFT_BYTE ** mem) {
     rsp.Clear();
     string * x;
     char * dados = (char*) malloc(respsize);
+    struct timespec now;
     x = new string(dados);
     rsp.set_data(&x);	
     unsigned int tamanho = rsp.ByteSize();
@@ -33,12 +44,17 @@ int execute(BFT_BYTE cmd[], int siz, BFT_BYTE ** mem) {
     	out = (BFT_BYTE*) malloc (1); /* caixa de brita */
     }
     (*mem) = out;
-
+if (rqst_count >= interval) {
+	            clock_gettime(CLOCK_MONOTONIC, &now);
+         printf("Throughput: %f / s", rqst_count / difftime(now.tv_sec, start_time.tv_sec));
+		            clock_gettime(CLOCK_MONOTONIC, &start_time);
+					                rqst_count = 0;
+}
+							    
     rsp.SerializeToArray((void*) out, tamanho);
     delete x;
     free(dados) 
-    return tamanho;
-}
+
 
 int execOrd(BFT_BYTE  cmd[], int siz, BFT_BYTE ** out) {    
     return execute(cmd, siz, out);
@@ -98,7 +114,8 @@ int main(int argc, char* argv[]) {
         return -1; 
     }
 
-
+respsize = atoi(argv[3]);
+		interval = atoi(argv[4]);
     setClasspath(argv[2]);
     carregarJvm();
     implementExecuteOrdered(&execOrd);
@@ -109,7 +126,8 @@ int main(int argc, char* argv[]) {
     implementReleaseGetSnapshotBuffer(&release);
     implementReleaseExecuteOrderedBuffer(&release);
     implementReleaseExecuteUnorderedBuffer(&release);
-
+rqst_count = 0;
+    stt_time_set = 0;
     startServiceReplica(atoi(argv[1]));
     finalizarJvm();
     return 0;

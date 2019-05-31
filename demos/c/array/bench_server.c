@@ -4,14 +4,24 @@
 #include <Estado.pb-c.h>
 #include <Response.pb-c.h>
 #include <Request.pb-c.h>
+#include <time.h>
 
 #define NAO_UTILIZADA(x) (void)(x)
 int respsize;
+int interval;
+struct timespec start_time;
+int stt_time_set;
+int rqst_count;
 
 int execute(BFT_BYTE cmd[], int siz, BFT_BYTE ** mem) {
+    if (!stt_time_set) {
+	    clock_gettime(CLOCK_MONOTONIC, &start_time);
+	    stt_time_set = 1;
+    }
     Bftbench__Request *msg = bftbench__request__unpack(NULL, siz, (const uint8_t*)cmd);
     Bftbench__Response rsp = BFTBENCH__RESPONSE__INIT;
     uint8_t * dado = (uint8_t*) malloc(respsize);
+    struct timespec now;
 
     rsp.has_data = 1;
     rsp.data = dado;
@@ -21,6 +31,13 @@ int execute(BFT_BYTE cmd[], int siz, BFT_BYTE ** mem) {
     bftbench__response__pack(&rsp, (uint8_t*) out);
     (*mem) = out;
     bftbench_request_free_unpacked(msg, NULL) ;
+    if (rqst_count >= interval) {
+	    clock_gettime(CLOCK_MONOTONIC, &now);
+	    printf("Throughput: %f / s", rqst_count / difftime(now.tv_sec, start_time.tv_sec));
+	    clock_gettime(CLOCK_MONOTONIC, &start_time);
+	    rqst_count = 0;
+
+    }
     return tamanho;
 }
 
@@ -92,6 +109,9 @@ int main(int argc, char* argv[]) {
     implementReleaseExecuteUnorderedBuffer(&release);
 
     respsize = atoi(argv[3]);
+    interval = atoi(argv[4]);
+    rqst_count = 0;
+    stt_time_set = 0;
     startServiceReplica(atoi(argv[1]));
     finalizarJvm();
     return 0;

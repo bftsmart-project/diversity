@@ -13,7 +13,7 @@ type replica struct {
     interval int
     // Instrumentation for throughput calculation
     rqst_count int
-    start_time Time
+    start_time time.Time
 }
 
 func (r * replica) ExecuteOrdered(command []byte) []byte {
@@ -61,7 +61,7 @@ func (r * replica) execute(command []byte) []byte {
                since := time.Since(start_time);
 	       fmt.Println("Throughput: %f / s", r.rqst_count / since.Seconds())
                r.rqst_count = 0; 
-	       r.start_time = new(Time);
+	       r.start_time = new(time.Time);
 	}
 	return data;
 }

@@ -14,11 +14,12 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.LinkedBlockingQueue;
 
 
 
 public class ArrayClient {
-    
+    static LinkedBlockingQueue<long> latencies;
     static class ClientThread extends Thread {
         int id;
         int numberOfOps;
@@ -54,7 +55,10 @@ public class ArrayClient {
 		RequestOuterClass.Request.Builder reqst;
 	        reqst = RequestOuterClass.Request.newBuilder();
                 reqst.setData(ByteString.copyFrom(request));			
+		long last_send_instant = System.nanoTime();
                 reply = proxy.invokeOrdered(reqst.build().toByteArray());
+		long latency = System.nanoTime() - last_send_instant;
+		latencies.put(latency);
 		try {
 		bftbench.ResponseOuterClass.Response.parseFrom(reply);
 		} catch (InvalidProtocolBufferException ex) {
@@ -114,6 +118,27 @@ for(int i=0; i<numThreads; i++) {
         }
     
         exec.shutdown();
+        
+	long[] lats = latencies.toArray(new long[0]);
+	long sum;
+	for(int i=0; i<lats.length; i++)
+		        {
+				            sum = sum + numbers[i];
+					            }
+	        double average = sum / numbers.length;
+		        System.out.println("Average latency is : " + average);
+			    double sd = 0;
+			        for (int i=0; i<latencies.length;i++)
+					            {
+							                    
+							                    {
+										                        sd += ((latencies[i] - average)*(latencies[i] - average)) / (latencies.length - 1);
+													                }
+									                }
+				            double standardDeviation = Math.sqrt(sd);
+					                System.out.println("The standard deviation is : " + standardDeviation);
+
+
 }
 
 }

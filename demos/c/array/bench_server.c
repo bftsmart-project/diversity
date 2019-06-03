@@ -23,14 +23,14 @@ int execute(BFT_BYTE cmd[], int siz, BFT_BYTE ** mem) {
     uint8_t * dado = (uint8_t*) malloc(respsize);
     struct timespec now;
 
-    rsp.has_data = 1;
-    rsp.data = dado;
+    rsp.data.data = dado;
+    rsp.data.len = respsize;
     unsigned int tamanho = bftbench__response__get_packed_size(&rsp);
     BFT_BYTE * out = (BFT_BYTE*) malloc (tamanho);
 
     bftbench__response__pack(&rsp, (uint8_t*) out);
     (*mem) = out;
-    bftbench_request_free_unpacked(msg, NULL) ;
+    bftbench__request__free_unpacked(msg, NULL) ;
     if (rqst_count >= interval) {
 	    clock_gettime(CLOCK_MONOTONIC, &now);
 	    printf("Throughput: %f / s", rqst_count / difftime(now.tv_sec, start_time.tv_sec));

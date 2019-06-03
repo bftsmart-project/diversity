@@ -38,8 +38,8 @@ func (r * replica) InstallSnapshot(state []byte) {
 }
 
 func (r * replica) execute(command []byte) []byte {
-	if start_time.IsZero() {
-	   start_time = time.Now() 
+	if r.start_time.IsZero() {
+	   r.start_time = time.Now();
         }
 	req := new(bftbench.Request)
 	err := proto.Unmarshal(command, req)
@@ -58,10 +58,10 @@ func (r * replica) execute(command []byte) []byte {
 	// Instrumentation for throughput calculation
         r.rqst_count++;
         if r.rqst_count >= r.interval {
-               since := time.Since(start_time);
-	       fmt.Println("Throughput: %f / s", r.rqst_count / since.Seconds())
+               since := time.Since(r.start_time);
+	       fmt.Println("Throughput: %f / s", float64(r.rqst_count) / since.Seconds())
                r.rqst_count = 0; 
-	       r.start_time = new(time.Time);
+	       r.start_time = time.Now();
 	}
 	return data;
 }

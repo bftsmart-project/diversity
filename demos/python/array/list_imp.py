@@ -24,7 +24,7 @@ class BFTList(BFTSMaRtServer):
         req.ParseFromString(input)
         rsp = Response_pb2.Response()
 	rsp.Data = bytearray(self.respsize)
-        self.rqst_count++
+        self.rqst_count = self.rqst_count+1
         if self.rqst_count >= self.interval:
             now = monotonic.monotonic()
             print "Throughput: {0} /s".format(self.rqst_count / now - self.start_time)

@@ -1,16 +1,31 @@
-.PHONY : clean all
+.PHONY : clean all protobuf demo-c demo-cpp demo-go demo-java demo-python diversity
 
-all :
+unexport MAKEFLAGS
+
+all : protobuf diversity demo-c demo-cpp demo-go demo-java demo-python diversity
+
+diversity:
 	cd bftsmart; mkdir -p bin; ant
 	cd diversity; make
+
+protobuf:
 	cd protobuf; make
 	cd demos/protobuf; make
-	cd demos/java; make
-	cd demos/c; make
-	cd demos/python; make
-	cd demos/go; make
-	cd demos/cpp; make
 
+demo-java: protobuf diversity
+	cd demos/java; make
+
+demo-c: protobuf diversity
+	cd demos/c; make
+
+demo-python: protobuf diversity
+	cd demos/python; make
+
+demo-go: protobuf diversity
+	cd demos/go; make
+
+demo-cpp: protobuf diversity
+	cd demos/cpp; make
 
 clean :
 	cd bftsmart; rm -rf bin

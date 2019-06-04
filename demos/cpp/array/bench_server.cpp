@@ -36,7 +36,7 @@ int execute(BFT_BYTE cmd[], int siz, BFT_BYTE ** mem) {
     char * dados = (char*) malloc(respsize);
     struct timespec now;
     x = new std::string(dados);
-    rsp.set_data(&x);	
+    rsp.set_data(*x);	
     unsigned int tamanho = rsp.ByteSize();
     BFT_BYTE * out;
     if (tamanho > 0) {
@@ -54,8 +54,8 @@ if (rqst_count >= interval) {
 							    
     rsp.SerializeToArray((void*) out, tamanho);
     delete x;
-    free(dados) 
-
+    free(dados); 
+    }
 
 int execOrd(BFT_BYTE  cmd[], int siz, BFT_BYTE ** out) {    
     return execute(cmd, siz, out);

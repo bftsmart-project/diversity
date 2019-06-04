@@ -59,7 +59,11 @@ public class ArrayClient {
 		long last_send_instant = System.nanoTime();
                 reply = proxy.invokeOrdered(reqst.build().toByteArray());
 		long latency = System.nanoTime() - last_send_instant;
-		latencies.put(latency);
+		try {
+			latencies.put(latency);
+		} catch (InterruptedException ex) {
+			throw new RuntimeException(ex);
+		}
 		try {
 		bftbench.ResponseOuterClass.Response.parseFrom(reply);
 		} catch (InvalidProtocolBufferException ex) {
@@ -121,7 +125,7 @@ for(int i=0; i<numThreads; i++) {
         exec.shutdown();
         
 	Long[] lats = latencies.toArray(new Long[0]);
-	long sum;
+	long sum = 0;
 	for(int i=0; i<lats.length; i++)
 		        {
 				            sum = sum + lats[i];

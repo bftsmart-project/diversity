@@ -13,6 +13,7 @@ import java.util.LinkedList;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import com.google.protobuf.ByteString;
 import java.util.concurrent.Future;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -119,13 +120,13 @@ for(int i=0; i<numThreads; i++) {
     
         exec.shutdown();
         
-	long[] lats = latencies.toArray(new long[0]);
+	Long[] lats = latencies.toArray(new Long[0]);
 	long sum;
 	for(int i=0; i<lats.length; i++)
 		        {
 				            sum = sum + lats[i];
 					            }
-	        double average = sum / numbers.length;
+	        double average = sum / lats.length;
 		        System.out.println("Average latency is : " + average);
 			    double sd = 0;
 			        for (int i=0; i<lats.length;i++)

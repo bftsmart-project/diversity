@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
+#include <string>
 #include <bftsmart-c-server.h>
 #include <Estado.pb.h>
 #include <Request.pb.h>

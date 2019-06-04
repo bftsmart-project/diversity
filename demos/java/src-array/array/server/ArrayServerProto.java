@@ -44,7 +44,7 @@ public class ArrayServerProto extends DefaultSingleRecoverable {
     private Storage acceptLatency = null;
     private byte[] request;
 
-    public ZeroServerProto(int id, int intervalo, int respsize) {
+    public ArrayServerProto(int id, int intervalo, int respsize) {
         this.interval = intervalo;
 	this.respsize = respsize;
 	this.request = new byte[this.requestSize];

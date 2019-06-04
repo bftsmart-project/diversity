@@ -47,9 +47,9 @@ public class ArrayServerProto extends DefaultSingleRecoverable {
     public ArrayServerProto(int id, int intervalo, int respsize) {
         this.interval = intervalo;
 	this.respsize = respsize;
-	this.request = new byte[this.requestSize];
+	this.request = new byte[this.respsize];
 	            
-	            for (int i = 0; i < requestSize; i++)
+	            for (int i = 0; i < respsize; i++)
 			                {
 						                this.request[i] = (byte)0xFF;
 					}
@@ -77,7 +77,7 @@ public class ArrayServerProto extends DefaultSingleRecoverable {
             ResponseOuterClass.Response.Builder reqst;
             reqst = ResponseOuterClass.Response
                     .newBuilder();
-		reqst.setData(this.request);
+		reqst.setData(ByteString.copyFrom(this.request));
                        // .setAction(RequestOuterClass.Request.RequestType.REMOVE)
             // .setValue(index)
             // .build();

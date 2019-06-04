@@ -19,7 +19,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 
 public class ArrayClient {
-    static LinkedBlockingQueue<long> latencies;
+    static LinkedBlockingQueue<Long> latencies;
     static class ClientThread extends Thread {
         int id;
         int numberOfOps;
@@ -123,16 +123,16 @@ for(int i=0; i<numThreads; i++) {
 	long sum;
 	for(int i=0; i<lats.length; i++)
 		        {
-				            sum = sum + numbers[i];
+				            sum = sum + lats[i];
 					            }
 	        double average = sum / numbers.length;
 		        System.out.println("Average latency is : " + average);
 			    double sd = 0;
-			        for (int i=0; i<latencies.length;i++)
+			        for (int i=0; i<lats.length;i++)
 					            {
 							                    
 							                    {
-										                        sd += ((latencies[i] - average)*(latencies[i] - average)) / (latencies.length - 1);
+										                        sd += ((lats[i] - average)*(lats[i] - average)) / (lats.length - 1);
 													                }
 									                }
 				            double standardDeviation = Math.sqrt(sd);

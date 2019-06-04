@@ -32,10 +32,10 @@ int execute(BFT_BYTE cmd[], int siz, BFT_BYTE ** mem) {
     rqst.ParseFromArray((const void*)cmd, siz);
     Response rsp;
     rsp.Clear();
-    string * x;
+    std::string * x;
     char * dados = (char*) malloc(respsize);
     struct timespec now;
-    x = new string(dados);
+    x = new std::string(dados);
     rsp.set_data(&x);	
     unsigned int tamanho = rsp.ByteSize();
     BFT_BYTE * out;

@@ -1,6 +1,7 @@
 .PHONY : clean all
 
 all :
+	echo $(MAKEFLAGS)
 	cd java; make
 	cd c; make
 	cd go; make
@@ -10,6 +11,7 @@ all :
 
 
 clean :
+	echo $(MAKEFLAGS)
 	cd java; make clean
 	cd c; make clean
 	cd go; make clean

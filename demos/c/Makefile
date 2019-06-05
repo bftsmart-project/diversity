@@ -10,7 +10,7 @@ all:
 
 clean:
 	cd zero; make clean
-	cd zero_plain; make
+	cd zero_plain; make clean
 	cd list2; make clean
 	cd list; make clean
 	cd kv; make clean

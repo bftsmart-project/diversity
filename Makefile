@@ -7,38 +7,37 @@ GOPATHKV = $(shell pwd)/demos/protobuf/kv/build/go
 GOPATHLIST = $(shell pwd)/demos/protobuf/list2/build/go
 GOPATHZERO = $(shell pwd)/demos/protobuf/zero/build/go
 
-unexport MAKEFLAGS
-
 all : protobuf/build/mark-proto protobuf/build/mark-protoc protobuf/build/mark-protopy protobuf/build/mark-protoj protobuf/build/mark-protogo diversity demo-c demo-cpp demo-go demo-java demo-python diversity
 
 diversity:
 	cd bftsmart; mkdir -p bin; ant
-	cd diversity; make
+	echo $(MAKEFLAGS)
+	cd diversity; $(MAKE) MAKEFLAGS=
 
 include protobuf/Makefile
 
 include demos/protobuf/Makefile
 
 demo-java: protobuf/build/mark-proto diversity demo-protobuf-java
-	cd demos/java; make
+	cd demos/java; $(MAKE) MAKEFLAGS=
 
 demo-c: protobuf/build/mark-protoc diversity demo-protobuf-c
-	cd demos/c; make
+	cd demos/c; $(MAKE) MAKEFLAGS= 
 
 demo-python: protobuf/build/mark-protopy diversity demo-protobuf-python
-	cd demos/python; make
+	cd demos/python; $(MAKE) MAKEFLAGS=
 
 demo-go: protobuf/build/mark-protogo diversity demo-protobuf-go
-	cd demos/go; make
+	cd demos/go; $(MAKE) MAKEFLAGS=
 
 demo-cpp: protobuf/build/mark-proto diversity demo-protobuf-cpp
-	cd demos/cpp; make
+	cd demos/cpp; $(MAKE) MAKEFLAGS=
 
 clean : clean-protobuf clean-demo-protobuf
 	cd bftsmart; rm -rf bin
-	cd diversity; make clean
-	cd demos/java; make clean
-	cd demos/c; make clean
-	cd demos/python; make clean
-	cd demos/go; make clean
-	cd demos/cpp; make clean
+	cd diversity; $(MAKE) clean MAKEFLAGS=
+	cd demos/java; $(MAKE) clean MAKEFLAGS= 
+	cd demos/c; $(MAKE) clean MAKEFLAGS=
+	cd demos/python; $(MAKE) clean MAKEFLAGS=
+	cd demos/go; $(MAKE) clean MAKEFLAGS=
+	cd demos/cpp; $(MAKE) clean MAKEFLAGS=

@@ -47,17 +47,17 @@ demo-protobuf-python:
 demo-protobuf-go:
 	cd demos/protobuf/array && mkdir -p build && \
 	mkdir -p build/go/src/bftbench && \
-	GOPATH=$(GOPATH):$(GOPATHARRAY)../../../protobuf/build/bin/protoc --plugin=protoc-gen-go=../../../protobuf/protobuf-go/bin/protoc-gen-go --go_out=./build/go/src/bftbench *.proto && \
+	GOPATH=$(GOPATH):$(GOPATHARRAY) ../../../protobuf/build/bin/protoc --plugin=protoc-gen-go=../../../protobuf/protobuf-go/bin/protoc-gen-go --go_out=./build/go/src/bftbench *.proto && \
 	cd build/go && GOPATH=$(GOPATH):$(GOPATHARRAY) go build bftbench && \
 	GOPATH=$(GOPATH):$(GOPATHARRAY) go install bftbench
 	cd demos/protobuf/kv && mkdir -p build && \
 	mkdir -p build/go/src/bftbench && \
-	GOPATH=$(GOPATH):$(GOPATHKV)../../../protobuf/build/bin/protoc --plugin=protoc-gen-go=../../../protobuf/protobuf-go/bin/protoc-gen-go --go_out=./build/go/src/bftbench *.proto && \
+	GOPATH=$(GOPATH):$(GOPATHKV) ../../../protobuf/build/bin/protoc --plugin=protoc-gen-go=../../../protobuf/protobuf-go/bin/protoc-gen-go --go_out=./build/go/src/bftbench *.proto && \
 	cd build/go && GOPATH=$(GOPATH):$(GOPATHKV) go build bftbench && \
 	GOPATH=$(GOPATH):$(GOPATHKV) go install bftbench
 	cd demos/protobuf/list2 && mkdir -p build && \
 	mkdir -p build/go/src/bftbench && \
-	GOPATH=$(GOPATH):$(GOPATHLIST)../../../protobuf/build/bin/protoc --plugin=protoc-gen-go=../../../protobuf/protobuf-go/bin/protoc-gen-go --go_out=./build/go/src/bftbench *.proto && \
+	GOPATH=$(GOPATH):$(GOPATHLIST) ../../../protobuf/build/bin/protoc --plugin=protoc-gen-go=../../../protobuf/protobuf-go/bin/protoc-gen-go --go_out=./build/go/src/bftbench *.proto && \
 	cd build/go && GOPATH=$(GOPATH):$(GOPATHLIST) go build bftbench && \
 	GOPATH=$(GOPATH):$(GOPATHLIST) go install bftbench
 

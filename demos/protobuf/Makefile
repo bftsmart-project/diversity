@@ -1,4 +1,4 @@
-demo-protobuf-java: protobuf/build/mark-proto
+demo-protobuf-java: protobuf/build/mark-protoj
 	cd demos/protobuf/array && mkdir -p build && \
 	../../../protobuf/build/bin/protoc --java_out=./build *.proto
 	cd demos/protobuf/kv && mkdir -p build && \

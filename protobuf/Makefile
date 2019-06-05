@@ -13,10 +13,11 @@ protobuf/build/mark-proto :
 	cd .. && touch build/mark-proto
 
 protobuf/build/mark-protopy : protobuf/build/mark-proto
+	mkdir -p $(PASTABUILDPROTO)/build/lib/python2.7/site-packages
 	cd protobuf && mkdir -p build && \
-	cd protobuf-2.6.1/python && PYTHONPATH=$(PASTABUILDPROTO)/build/lib/python2.7/site-packages python setup.py build && \
+	cd protobuf-2.6.1/python && python setup.py build && \
 	echo "FINISHED PROTOPY BUILD." && \
-	PYTHONPATH=$(PASTABUILDPROTO)/build/lib/python2.7/site-packages python setup.py google_test && \
+	python setup.py google_test && \
 	echo "FINISHED PROTOPY GOOGLE_TEST." && \
 	PYTHONPATH=$(PASTABUILDPROTO)/build/lib/python2.7/site-packages python setup.py install --prefix=$(PASTABUILDPROTO)/build && \
 	echo "FINISHED PROTOPY INSTALL." && \

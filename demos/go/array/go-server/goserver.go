@@ -59,7 +59,7 @@ func (r * replica) execute(command []byte) []byte {
         r.rqst_count++;
         if r.rqst_count >= r.interval {
                since := time.Since(r.start_time);
-	       fmt.Println("Throughput: %f / s", float64(r.rqst_count) / since.Seconds())
+	       fmt.Println("Throughput: ", float64(r.rqst_count) / since.Seconds(), " / s")
                r.rqst_count = 0; 
 	       r.start_time = time.Now();
 	}

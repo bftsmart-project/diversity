@@ -7,13 +7,14 @@ import Request_pb2
 import Response_pb2
 import monotonic
 from bftsmart_serverlib import *
+from array import array
 
 class BFTList(BFTSMaRtServer):
-    def __init__(self,classpth,id,dllpath,interval,respsize):
+    def __init__(self,classpth,id,dllpath,respsize,interval):
         super(BFTList,self).__init__(classpth,id,dllpath)
-        self.respsize = respsize
+        self.respsize = int(respsize)
         self.rqst_count = 0
-        self.interval = interval
+        self.interval = int(interval)
         self.start_time = 0
 
     def execute(self, input):
@@ -23,11 +24,16 @@ class BFTList(BFTSMaRtServer):
         req = Request_pb2.Request()
         req.ParseFromString(input)
         rsp = Response_pb2.Response()
-	rsp.Data = bytearray(self.respsize)
+        x = bytearray(self.respsize)
+        s = array('B', x)
+	rsp.Data = s.tostring()
         self.rqst_count = self.rqst_count+1
+        print self.rqst_count
+        print self.interval
         if self.rqst_count >= self.interval:
+            print "yes"
             now = monotonic.monotonic()
-            print "Throughput: {0} /s".format(self.rqst_count / now - self.start_time)
+            print "Throughput: {0} /s".format(self.rqst_count / (now - self.start_time))
             self.rqst_count = 0
             self.start_time = monotonic.monotonic()
         return rsp.SerializeToString()

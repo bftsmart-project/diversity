@@ -13,5 +13,5 @@ java -cp "$BASEFOLDER/../../bftsmart/library/lib/*:"\
 "$BASEFOLDER/../../bftsmart/bin/BFT-SMaRt.jar:"\
 "$BASEFOLDER/../../protobuf/build/protobuf-runtime.jar:"\
 "$BASEFOLDER/../protobuf/array/build/array-proto.jar:"\
-"$BASEFOLDER/array/build/demo-array-java.jar" bftsmart.diversity.demos.array.ServerLaunchProto $1 $3 $2
+"$BASEFOLDER/bin/demo-array-java.jar" bftsmart.diversity.demos.array.ServerLaunchProto $1 $3 $2
 

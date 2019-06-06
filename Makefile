@@ -31,7 +31,7 @@ demo-go: protobuf/build/mark-protogo diversity demo-protobuf-go
 	cd demos/go; $(MAKE) MAKEFLAGS=
 
 demo-cpp: protobuf/build/mark-proto diversity demo-protobuf-cpp
-	cd demos/cpp; $(MAKE) MAKEFLAGS=
+	cd demos/cpp; $(MAKE)
 
 clean : clean-protobuf clean-demo-protobuf
 	cd bftsmart; rm -rf bin

@@ -19,6 +19,31 @@ struct timespec start_time;
 int stt_time_set;
 int rqst_count;
 
+int
+timespec_subtract (struct timespec *result, struct timespec *x, struct timespec *y)
+{
+	          /* Perform the carry for the later subtraction by updating y. */
+	          if (x->tv_nsec < y->tv_nsec) {
+			                        int nsec = (y->tv_nsec - x->tv_nsec) / 1000000000 + 1;
+						                          y->tv_nsec -= 1000000000 * nsec;
+									                                y->tv_sec += nsec;
+													                                }
+		              if (x->tv_nsec - y->tv_nsec > 1000000000) {
+				                              int nsec = (x->tv_nsec - y->tv_nsec) / 1000000000;
+							                                  y->tv_nsec += 1000000000 * nsec;
+											                                  y->tv_sec -= nsec;
+															                                    }
+
+			                    /* Compute the time remaining to wait.
+					     *                *      tv_usec is certainly positive. */
+			                    result->tv_sec = x->tv_sec - y->tv_sec;
+					                    result->tv_nsec = x->tv_nsec - y->tv_nsec;
+
+							                      /* Return 1 if result is negative. */
+							                      return x->tv_sec < y->tv_sec;
+}
+
+
 
 int execute(BFT_BYTE cmd[], int siz, BFT_BYTE ** mem) {
     if (!stt_time_set) {
@@ -33,28 +58,37 @@ int execute(BFT_BYTE cmd[], int siz, BFT_BYTE ** mem) {
     Response rsp;
     rsp.Clear();
     std::string * x;
-    char * dados = (char*) malloc(respsize);
+    std::cout << respsize << std::endl;
+    char * dados = (char*) malloc(respsize == 0 ? 1 : respsize);
+    dados[0] = 0xFF;
     struct timespec now;
-    x = new std::string(dados);
+    x = new std::string(dados, respsize);
     rsp.set_data(*x);	
     unsigned int tamanho = rsp.ByteSize();
+    std::cout << tamanho << std::endl;
     BFT_BYTE * out;
     if (tamanho > 0) {
     	out = (BFT_BYTE*) malloc (tamanho);
     } else {
     	out = (BFT_BYTE*) malloc (1); /* caixa de brita */
+	out[0] = 0xFF;
     }
     (*mem) = out;
+    rqst_count++;
 if (rqst_count >= interval) {
-	            clock_gettime(CLOCK_MONOTONIC, &now);
-         printf("Throughput: %f / s", rqst_count / difftime(now.tv_sec, start_time.tv_sec));
-		            clock_gettime(CLOCK_MONOTONIC, &start_time);
-					                rqst_count = 0;
+clock_gettime(CLOCK_MONOTONIC, &now);
+            struct timespec diff;
+	                timespec_subtract(&diff, &now, &start_time);
+			            printf("Throughput: %f / s", rqst_count / (diff.tv_sec + diff.tv_nsec / 1000000000.0));
+				                clock_gettime(CLOCK_MONOTONIC, &start_time);
+						            rqst_count = 0;
+
 }
 							    
     rsp.SerializeToArray((void*) out, tamanho);
     delete x;
     free(dados); 
+    return tamanho > 0 ? tamanho : 1;
     }
 
 int execOrd(BFT_BYTE  cmd[], int siz, BFT_BYTE ** out) {    

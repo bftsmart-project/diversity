@@ -1,19 +1,13 @@
-all:	
-	cd list2; make
-	cd kv; make
-	cd zero_plain; make
-	cd array; make
+.PHONY: clean list2 kv zero_plain array
+FOLDERS = list2 kv zero_plain array
 
-.PHONY: clean
+all: $(FOLDERS)
+
+$(FOLDERS):
+	cd $@ && $(MAKE) MAKEFLAGS=
 
 clean:	
-	cd list2; make clean
-	cd kv; make clean
-	cd zero_plain; make clean
-	cd array; make clean
-
-
-
-   
-
-
+	cd list2; $(MAKE) clean MAKEFLAGS=
+	cd kv; $(MAKE) clean MAKEFLAGS=
+	cd zero_plain; $(MAKE) clean MAKEFLAGS=
+	cd array; $(MAKE) clean MAKEFLAGS=

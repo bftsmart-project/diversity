@@ -20,7 +20,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 
 public class ArrayClient {
-    static LinkedBlockingQueue<Long> latencies;
+    public static LinkedBlockingQueue<Long> latencies;
     static class ClientThread extends Thread {
         int id;
         int numberOfOps;
@@ -58,7 +58,7 @@ public class ArrayClient {
                 reqst.setData(ByteString.copyFrom(request));			
 		long last_send_instant = System.nanoTime();
                 reply = proxy.invokeOrdered(reqst.build().toByteArray());
-		long latency = System.nanoTime() - last_send_instant;
+		long latency = (System.nanoTime() - last_send_instant) / 1000000;
 		try {
 			latencies.put(latency);
 		} catch (InterruptedException ex) {
@@ -80,7 +80,7 @@ public static void main(String[] args) throws IOException {
 		System.out.println("Usage: ... ListClient <num. threads> <process id> <number of operations> <request size> <interval> ");
 		System.exit(-1);
         }
-        
+	ArrayClient.latencies = new LinkedBlockingQueue<Long>();        
         int numThreads = Integer.parseInt(args[0]);
         int initId = Integer.parseInt(args[1]);
 
@@ -131,7 +131,7 @@ for(int i=0; i<numThreads; i++) {
 				            sum = sum + lats[i];
 					            }
 	        double average = sum / lats.length;
-		        System.out.println("Average latency is : " + average);
+		        System.out.println("Average latency is : " + (average) + "ms");
 			    double sd = 0;
 			        for (int i=0; i<lats.length;i++)
 					            {

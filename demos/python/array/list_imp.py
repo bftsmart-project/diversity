@@ -16,6 +16,7 @@ class BFTList(BFTSMaRtServer):
         self.rqst_count = 0
         self.interval = int(interval)
         self.start_time = 0
+        self.max_tp = 0
 
     def execute(self, input):
         if self.start_time == 0:
@@ -33,7 +34,13 @@ class BFTList(BFTSMaRtServer):
         if self.rqst_count >= self.interval:
             print "yes"
             now = monotonic.monotonic()
+            tp = self.rqst_count / (now - self.start_time)
+
             print "Throughput: {0} /s".format(self.rqst_count / (now - self.start_time))
+            if tp > self.max_tp:
+                self.max_tp = tp
+                
+            print "Max throughput: {0} /s".format(self.max_tp)
             self.rqst_count = 0
             self.start_time = monotonic.monotonic()
         return rsp.SerializeToString()

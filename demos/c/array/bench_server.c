@@ -12,6 +12,7 @@ int interval;
 struct timespec start_time;
 int stt_time_set;
 int rqst_count;
+double max_tp;
 
 int
 timespec_subtract (struct timespec *result, struct timespec *x, struct timespec *y)
@@ -60,7 +61,12 @@ int execute(BFT_BYTE cmd[], int siz, BFT_BYTE ** mem) {
 	    clock_gettime(CLOCK_MONOTONIC, &now);
 	    struct timespec diff;
 	    timespec_subtract(&diff, &now, &start_time);
-	    printf("Throughput: %f / s", rqst_count / (diff.tv_sec + diff.tv_nsec / 1000000000.0));
+	    double tp = (diff.tv_sec + diff.tv_nsec / 1000000000.0);
+	    printf("Throughput: %f / s", rqst_count / tp);
+	    if ((rqst_count / tp) > max_tp) {
+		    max_tp = (rqst_count / tp);
+	    }
+	    printf("Max throughput: %f / s", max_tp);
 	    clock_gettime(CLOCK_MONOTONIC, &start_time);
 	    rqst_count = 0;
 
@@ -139,6 +145,7 @@ int main(int argc, char* argv[]) {
     interval = atoi(argv[4]);
     rqst_count = 0;
     stt_time_set = 0;
+    max_tp = 0;
     startServiceReplica(atoi(argv[1]));
     finalizarJvm();
     return 0;

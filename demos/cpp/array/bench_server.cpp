@@ -18,6 +18,7 @@ int interval;
 struct timespec start_time;
 int stt_time_set;
 int rqst_count;
+double max_tp;
 
 int
 timespec_subtract (struct timespec *result, struct timespec *x, struct timespec *y)
@@ -79,7 +80,13 @@ if (rqst_count >= interval) {
 clock_gettime(CLOCK_MONOTONIC, &now);
             struct timespec diff;
 	                timespec_subtract(&diff, &now, &start_time);
+			double tp = rqst_count / (diff.tv_sec + diff.tv_nsec / 1000000000.0);
 			            printf("Throughput: %f / s", rqst_count / (diff.tv_sec + diff.tv_nsec / 1000000000.0));
+
+				    if (tp > max_tp) {
+					    max_tp = tp;
+				    }
+			            printf("Max Throughput: %f / s", max_tp);
 				                clock_gettime(CLOCK_MONOTONIC, &start_time);
 						            rqst_count = 0;
 
@@ -150,6 +157,7 @@ int main(int argc, char* argv[]) {
     }
 
 respsize = atoi(argv[3]);
+max_tp = 0;
 		interval = atoi(argv[4]);
     setClasspath(argv[2]);
     carregarJvm();

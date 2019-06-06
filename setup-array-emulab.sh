@@ -10,6 +10,7 @@ mv hostsEmulab.config hosts.config
 cd ..
 time make -j10
 echo $? 
+exit
 EOF
 
 echo "Finalizado."

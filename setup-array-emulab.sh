@@ -8,7 +8,7 @@ cd bftsmart-diversity
 cd config
 mv hostsEmulab.config hosts.config
 cd ..
-make -j10
+time make -j10
 echo $? 
 EOF
 

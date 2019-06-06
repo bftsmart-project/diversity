@@ -60,7 +60,7 @@ int execute(BFT_BYTE cmd[], int siz, BFT_BYTE ** mem) {
     rsp.Clear();
     std::string * x;
     std::cout << respsize << std::endl;
-    char * dados = (char*) calloc(respsize == 0 ? 1 : respsize);
+    char * dados = (char*) calloc(respsize == 0 ? 1 : respsize, 1);
     dados[0] = 0xFF;
     struct timespec now;
     x = new std::string(dados, respsize);

@@ -2,7 +2,7 @@
 set -b # reporta status de jobs imediatamente ao inves de so no fim do script
 
 ssh -t -t -o "StrictHostKeyChecking no" localhost /bin/bash << EOF 2>&1 | sed 's/^/SSH1:/' &
-cd bftsmart-diversity
+cd worker/compilar-projeto/build
 ./demos/$5/run_array_server.sh 0 $3 $4
 EOF
 JOB2=$! 
@@ -10,7 +10,7 @@ JOB2=$!
 sleep 1
 
 ssh -t -t -o "StrictHostKeyChecking no" localhost /bin/bash << EOF 2>&1 | sed 's/^/SSH2:/' &
-cd bftsmart-diversity
+cd worker/compilar-projeto/build
 ./demos/$5/run_array_server.sh 1 $3 $4
 EOF
 JOB3=$! 
@@ -18,7 +18,7 @@ JOB3=$!
 sleep 1
 
 ssh -t -t -o "StrictHostKeyChecking no" localhost /bin/bash << EOF 2>&1 | sed 's/^/SSH3:/' &
-cd bftsmart-diversity
+cd worker/compilar-projeto/build
 ./demos/$5/run_array_server.sh 2 $3 $4
 EOF
 JOB4=$! 
@@ -26,7 +26,7 @@ JOB4=$!
 sleep 1
 
 ssh -t -t -o "StrictHostKeyChecking no" localhost /bin/bash << EOF 2>&1 | sed 's/^/SSH4:/' &
-cd bftsmart-diversity
+cd worker/compilar-projeto/build
 ./demos/$5/run_array_server.sh 3 $3 $4
 EOF
 JOB5=$! 
@@ -34,7 +34,7 @@ JOB5=$!
 sleep 30
 
 ssh -t -t -o "StrictHostKeyChecking no" localhost /bin/bash << EOF 2>&1 | sed 's/^/SSH0:/' &
-cd bftsmart-diversity
+cd worker/compilar-projeto/build
 ./demos/java/run_array_client.sh 0 $1 $2 $3 
 exit
 EOF

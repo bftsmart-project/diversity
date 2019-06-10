@@ -45,7 +45,8 @@ int execute(BFT_BYTE cmd[], int siz, BFT_BYTE **mem) {
   Bftbench__Request *msg =
       bftbench__request__unpack(NULL, siz, (const uint8_t *)cmd);
   Bftbench__Response rsp = BFTBENCH__RESPONSE__INIT;
-  uint8_t *dado = (uint8_t *)malloc(respsize);
+  /* uint8_t *dado = (uint8_t *)malloc(respsize); */
+  uint8_t *dado = (uint8_t *)calloc(respsize == 0 ? 1 : respsize, 1);
   struct timespec now;
 
   rsp.data.data = dado;

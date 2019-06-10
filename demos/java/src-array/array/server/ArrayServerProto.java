@@ -69,8 +69,8 @@ public class ArrayServerProto extends DefaultSingleRecoverable {
 
     private byte[] execute(byte[] command, MessageContext msgCtx) {
         try {
-	System.out.println("---");
-	System.out.println(command.length);
+	//System.out.println("---");
+	//System.out.println(command.length);
             computeStatistics(msgCtx);
             bftbench.RequestOuterClass.Request rqst
                     = bftbench.RequestOuterClass.Request.parseFrom(command);
@@ -83,7 +83,7 @@ public class ArrayServerProto extends DefaultSingleRecoverable {
             // .setValue(index)
             // .build();
 	byte[] respo = reqst.build().toByteArray();
-	System.out.println(respo.length);
+	//System.out.println(respo.length);
 
             return respo;
         } catch (InvalidProtocolBufferException ex) {

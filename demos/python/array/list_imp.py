@@ -29,10 +29,10 @@ class BFTList(BFTSMaRtServer):
         s = array('B', x)
 	rsp.Data = s.tostring()
         self.rqst_count = self.rqst_count+1
-        print self.rqst_count
-        print self.interval
+        #print self.rqst_count
+        #print self.interval
         if self.rqst_count >= self.interval:
-            print "yes"
+            #print "yes"
             now = monotonic.monotonic()
             tp = self.rqst_count / (now - self.start_time)
 

@@ -12,7 +12,7 @@ from array import array
 class BFTList(BFTSMaRtServer):
     def __init__(self,classpth,id,dllpath,respsize,interval):
         super(BFTList,self).__init__(classpth,id,dllpath)
-        self.replicaid = id
+        self.replicaid = int(id)
         self.respsize = int(respsize)
         self.rqst_count = 0
         self.interval = int(interval)

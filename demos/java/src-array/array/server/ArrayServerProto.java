@@ -32,6 +32,7 @@ public class ArrayServerProto extends DefaultSingleRecoverable {
   private int iterations = 0;
   private long throughputMeasurementStartTime = System.currentTimeMillis();
   private int interval;
+  private int replicaid;
   private int respsize;
   private float maxTp = -1;
   private boolean context = false;
@@ -47,6 +48,7 @@ public class ArrayServerProto extends DefaultSingleRecoverable {
 
   public ArrayServerProto(int id, int intervalo, int respsize) {
     this.interval = intervalo;
+    this.replicaid = id;
     this.respsize = respsize;
     this.request = new byte[this.respsize];
 
@@ -188,6 +190,10 @@ public class ArrayServerProto extends DefaultSingleRecoverable {
 
       if (tp > maxTp) {
         maxTp = tp;
+      }
+      
+      if (replicaid == 0) {
+        System.out.println("MAXTHRO: " + maxTp);
       }
 
       System.out.println("Throughput = " + tp +

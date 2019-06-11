@@ -12,6 +12,7 @@ from array import array
 class BFTList(BFTSMaRtServer):
     def __init__(self,classpth,id,dllpath,respsize,interval):
         super(BFTList,self).__init__(classpth,id,dllpath)
+        self.replicaid = id
         self.respsize = int(respsize)
         self.rqst_count = 0
         self.interval = int(interval)
@@ -41,6 +42,10 @@ class BFTList(BFTSMaRtServer):
                 self.max_tp = tp
                 
             print "Max throughput: {0} /s".format(self.max_tp)
+
+            if self.replicaid == 0:
+                print "MAXTHRO: {0}".format(self.max_tp)
+
             self.rqst_count = 0
             self.start_time = monotonic.monotonic()
         return rsp.SerializeToString()

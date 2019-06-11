@@ -10,6 +10,7 @@ import "time"
 
 type replica struct {
     resp_size int
+    idreplica int
     interval int
     // Instrumentation for throughput calculation
     rqst_count int
@@ -67,6 +68,9 @@ func (r * replica) execute(command []byte) []byte {
 
 	       }
 	       fmt.Println("Max Throughput: ", r.max_tp)
+	       if r.idreplica == 0 {
+	         fmt.Println("MAXTHRO: ", r.max_tp);
+	       }
 	       r.rqst_count = 0; 
 	       r.start_time = time.Now();
 	}
@@ -80,7 +84,7 @@ func main() {
 	checkError(err)
         inte, err := strconv.Atoi(os.Args[4])
         checkError(err)
-	r := replica{ resp_size: s, interval: inte, max_tp: 0 }
+	r := replica{ resp_size: s, interval: inte, max_tp: 0, idreplica: i}
 	bftsmartserver.StartServiceReplica(i, os.Args[2], &r);
 	bftsmartserver.FinalizarJvm()
 	fmt.Println("main finalizou")

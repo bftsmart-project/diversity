@@ -131,7 +131,7 @@ public class ArrayClient {
       sum = sum + lats[i];
     }
     double average = sum / lats.length;
-    System.out.println("Average latency is : " + (average) + "us");
+    System.out.println("LATENCY: " + (average) + "us");
     double sd = 0;
     for (int i = 0; i < lats.length; i++) {
 
@@ -140,6 +140,6 @@ public class ArrayClient {
       }
     }
     double standardDeviation = Math.sqrt(sd/(lats.length-1));
-    System.out.println("The standard deviation is : " + standardDeviation);
+    System.out.println("STNDDEV: " + standardDeviation);
   }
 }

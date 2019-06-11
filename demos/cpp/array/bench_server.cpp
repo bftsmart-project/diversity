@@ -13,6 +13,7 @@
 #define DEBUG 0
 
 int respsize;
+int replicaid;
 int interval;
 struct timespec start_time;
 int stt_time_set;
@@ -83,6 +84,9 @@ int execute(BFT_BYTE cmd[], int siz, BFT_BYTE **mem) {
       max_tp = tp;
     }
     std::cout << "Max Throughput: " << max_tp << "/ s" << std::endl;
+    if (replicaid == 0) {
+      std::cout << "MAXTHRO: " << max_tp << std::endl;
+    }
     clock_gettime(CLOCK_MONOTONIC, &start_time);
     rqst_count = 0;
   }
@@ -145,6 +149,7 @@ int main(int argc, char *argv[]) {
 
   respsize = atoi(argv[3]);
   max_tp = 0;
+  replicaid = atoi(argv[1])
   interval = atoi(argv[4]);
   setClasspath(argv[2]);
   carregarJvm();

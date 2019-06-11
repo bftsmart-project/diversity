@@ -8,6 +8,7 @@
 
 #define NAO_UTILIZADA(x) (void)(x)
 int respsize;
+int replicaid;
 int interval;
 struct timespec start_time;
 int stt_time_set;
@@ -68,6 +69,9 @@ int execute(BFT_BYTE cmd[], int siz, BFT_BYTE **mem) {
       max_tp = (rqst_count / tp);
     }
     printf("Max throughput: %f / s\n", max_tp);
+    if (replicaid == 0) {
+      printf("MAXTHRO: %f", max_tp);
+    }
     clock_gettime(CLOCK_MONOTONIC, &start_time);
     rqst_count = 0;
   }
@@ -137,6 +141,7 @@ int main(int argc, char *argv[]) {
   rqst_count = 0;
   stt_time_set = 0;
   max_tp = 0;
+  replicaid = atoi(argv[1]);
   startServiceReplica(atoi(argv[1]));
   finalizarJvm();
   return 0;

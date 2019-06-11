@@ -6,6 +6,7 @@ do
 for j in 0 512 1024 4096
 do
 echo
+date
 echo Caso $i $j
 ./execucao-array-emulab.sh 100 2000 $j 5000 $i | grep -E '(LATENCY|STNDDEV|MAXTHRO)'
 echo

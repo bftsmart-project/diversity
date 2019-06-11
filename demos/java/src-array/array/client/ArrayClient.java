@@ -57,7 +57,7 @@ public class ArrayClient {
         reqst.setData(ByteString.copyFrom(request));
         long last_send_instant = System.nanoTime();
         reply = proxy.invokeOrdered(reqst.build().toByteArray());
-        long latency = (System.nanoTime() - last_send_instant) / 1000000;
+        long latency = (System.nanoTime() - last_send_instant) / 1000;
         try {
           latencies.put(latency);
         } catch (InterruptedException ex) {
@@ -131,15 +131,15 @@ public class ArrayClient {
       sum = sum + lats[i];
     }
     double average = sum / lats.length;
-    System.out.println("Average latency is : " + (average) + "ms");
+    System.out.println("Average latency is : " + (average) + "us");
     double sd = 0;
     for (int i = 0; i < lats.length; i++) {
 
       {
-        sd += ((lats[i] - average) * (lats[i] - average)) / (lats.length - 1);
+        sd += ((lats[i] - average) * (lats[i] - average));
       }
     }
-    double standardDeviation = Math.sqrt(sd);
+    double standardDeviation = Math.sqrt(sd/(lats.length-1));
     System.out.println("The standard deviation is : " + standardDeviation);
   }
 }

@@ -149,7 +149,7 @@ int main(int argc, char *argv[]) {
 
   respsize = atoi(argv[3]);
   max_tp = 0;
-  replicaid = atoi(argv[1])
+  replicaid = atoi(argv[1]);
   interval = atoi(argv[4]);
   setClasspath(argv[2]);
   carregarJvm();

@@ -35,7 +35,7 @@ sleep 30
 
 ssh -t -t -o "StrictHostKeyChecking no" caioysc@node0.expteste.freestore.emulab.net /bin/bash << EOF 2>&1 | sed 's/^/SSH0:/' 
 cd bftsmart-diversity
-./demos/java/run_array_client.sh 0 $1 $2 $3 
+./demos/java/run_array_client.sh 7001 $1 $2 $3 
 exit
 EOF
 JOB1=$! 
